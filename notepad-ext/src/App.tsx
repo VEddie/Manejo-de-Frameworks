@@ -1,5 +1,5 @@
 import { Container, Grid, GridItem } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import NoteMenu from './components/NoteMenu';
 import NoteField from './components/NoteField';
 
@@ -10,15 +10,8 @@ interface Note {
     content: string;
 }
 
-function App() {
-    const [selectedText, setSelectedText] = useState<string>('');
-    const [note, setNote] = useState<Note>({ noteId: 0, userId: 0, title: '', content: '' });
-
-    useEffect(() => {
-        document.addEventListener('selectionchange', () => {
-            setSelectedText(document?.getSelection()?.toString() || '');
-        });
-    }, []);
+function App() {    
+    const [note, setNote] = useState<Note>({ noteId: 0, userId: 0, title: 'Untitled', content: '' });
 
     return (
         <Container fluid>
@@ -33,11 +26,10 @@ function App() {
                 </GridItem>
 
                 <GridItem area='text' bg='gold'>
-                    <NoteField selectedText={selectedText}/>
+                    <NoteField/>
                 </GridItem>
 
                 <GridItem area='list' bg='dodgerblue' width={400}>
-                    Selected text: {selectedText}
                 </GridItem>
             </Grid>
         </Container>
