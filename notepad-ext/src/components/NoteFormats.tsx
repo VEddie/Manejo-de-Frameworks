@@ -1,8 +1,8 @@
 import { Button, ButtonGroup } from "@chakra-ui/react"
 
-const FormatOptions = () => {
+const NoteFormats = () => {
   return (
-    <ButtonGroup gapX={2} size='sm' colorPalette='green'>
+    <ButtonGroup gapX={2} size='sm' colorPalette='green' mt='2'>
         <Button>B</Button>
         <Button>I</Button>
         <Button>U</Button>
@@ -10,4 +10,4 @@ const FormatOptions = () => {
   )
 }
 
-export default FormatOptions
+export default NoteFormats;

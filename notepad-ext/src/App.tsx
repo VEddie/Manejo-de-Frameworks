@@ -1,8 +1,8 @@
-import { Container, Flex, Grid, GridItem, Text, VStack } from '@chakra-ui/react';
-import NoteField from './components/NoteField';
-import FormatOptions from './components/FormatOptions';
+import { Container, Grid, GridItem } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import NoteMenu from './components/NoteMenu';
+import NoteFormats from './components/NoteFormats';
+import NoteField from './components/NoteField';
 
 function App() {
     const [selectedText, setSelectedText] = useState<string>();
@@ -26,11 +26,12 @@ function App() {
                     <NoteMenu />
                 </GridItem>
 
-                <GridItem area='text' bg='gold' flexGrow='1'>
-                    Text area
+                <GridItem area='text' bg='gold'>
+                    <NoteFormats />
+                    <NoteField />
                 </GridItem>
 
-                <GridItem area='list' bg='dodgerblue' hideBelow='lg'>
+                <GridItem area='list' bg='dodgerblue'>
                     Notes List
                 </GridItem>
             </Grid>
