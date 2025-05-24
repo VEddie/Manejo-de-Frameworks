@@ -1,15 +1,26 @@
-import { Textarea } from '@chakra-ui/react';
+import { Container, Textarea } from '@chakra-ui/react';
+import NoteFormats from './NoteFormats';
+import { useRef } from 'react';
 
-const NoteField = () => {
+interface Props {
+    selectedText: string;
+}
+
+const NoteField = ({ selectedText }: Props) => {
+    const noteField = useRef<HTMLTextAreaElement>(null);
+
     return (
-        <Textarea
-            size='lg'
-            mt='2'
-            cols={50}
-            rows={25}
-            placeholder='Start writing your new note...'
-            defaultValue='LSorem ipsum dolor sit amet consectetur adipisicing elit. Earum expedita, aspernatur labore natus tempore aperiam minima quaerat consequatur quae iure iste suscipit eius ullam, praesentium exercitationem nihil officiis illum in molestias reprehenderit. Quia, inventore nam dolores pariatur praesentium omnis in.'
-        ></Textarea>
+        <Container padding={0}>
+            <NoteFormats />
+            <Textarea
+                ref={noteField}
+                size='lg'
+                mt='2'
+                cols={50}
+                rows={25}
+                placeholder='Start writing your new note...'
+            ></Textarea>
+        </Container>
     );
 };
 

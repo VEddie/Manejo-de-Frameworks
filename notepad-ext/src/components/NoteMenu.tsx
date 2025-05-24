@@ -1,8 +1,9 @@
-import { Button, HStack, Menu, Portal } from '@chakra-ui/react';
+import { Button, HStack, Menu, Portal, Text } from '@chakra-ui/react';
+import { ImCross } from 'react-icons/im';
 
 const NoteMenu = () => {
     return (
-        <HStack>
+        <HStack justifyContent='space-between'>
             <Menu.Root>
                 <Menu.Trigger asChild>
                     <Button variant='outline'>File</Button>
@@ -25,6 +26,12 @@ const NoteMenu = () => {
                     </Menu.Positioner>
                 </Portal>
             </Menu.Root>
+            <Text margin='auto'>
+                Unregistered User - Untitled
+            </Text>
+            <Button colorPalette='red'>
+                <ImCross />
+            </Button>
         </HStack>
     );
 };
