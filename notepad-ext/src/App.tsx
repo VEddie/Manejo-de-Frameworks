@@ -4,6 +4,7 @@ import { Note } from './interfaces/Note';
 import NoteMenu from './components/NoteMenu';
 import NoteField from './components/NoteField';
 import NoteCard from './components/NoteCard';
+import FileTest from './components/FileTest';
 
 function App() {
     const [note, setNote] = useState<Note>({
@@ -59,7 +60,10 @@ function App() {
                     </SimpleGrid>
                 </GridItem>
             </Grid>
+
+            <FileTest/>
         </Container>
+
 
         // To do later: Add basic API to save users & notes.
         // Allow text files to be loaded into the app.

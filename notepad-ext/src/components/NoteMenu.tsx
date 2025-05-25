@@ -32,6 +32,7 @@ const NoteMenu = ({ note, onSetNote, onSetUserNote }: Props) => {
                                 >
                                     New
                                 </Menu.Item>
+
                                 <Menu.Item
                                     value='save'
                                     onClick={() => {
@@ -40,7 +41,11 @@ const NoteMenu = ({ note, onSetNote, onSetUserNote }: Props) => {
                                 >
                                     Save
                                 </Menu.Item>
-                                <Menu.Item value='load'>Load .txt</Menu.Item>
+
+                                <Menu.Item value='load'>
+                                    Load from .txt
+                                </Menu.Item>
+
                                 <Menu.Item
                                     value='delete'
                                     color='fg.error'
