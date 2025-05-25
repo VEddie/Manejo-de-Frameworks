@@ -1,13 +1,19 @@
 import { useEffect, useRef, useState } from 'react';
 import { Container, Textarea } from '@chakra-ui/react';
+import { Note } from '@/interfaces/Note';
 import NoteFormats from './NoteFormats';
 
-const NoteField = () => {
+interface Props {
+    note: Note;
+    onSetContent: (newContent: string) => void;
+}
+
+const NoteField = ({ note, onSetContent }: Props) => {
     const noteField = useRef<HTMLTextAreaElement>(null);
     const [selectedText, setSelectedText] = useState<string>('');
 
     useEffect(() => {
-        if(noteField.current) {
+        if (noteField.current) {
             noteField.current.addEventListener('selectionchange', () => {
                 setSelectedText(document.getSelection()?.toString() || '');
                 // To fix later.
@@ -17,7 +23,11 @@ const NoteField = () => {
 
     return (
         <Container padding={0}>
-            <NoteFormats noteField={noteField.current?.value || ''} selectedText={selectedText} />
+            <NoteFormats
+                currentContent={noteField.current?.value || ''}
+                selectedText={selectedText}
+                onSetContent={(newContent) => onSetContent(newContent)}
+            />
             <Textarea
                 ref={noteField}
                 size='lg'
@@ -25,7 +35,7 @@ const NoteField = () => {
                 cols={50}
                 rows={25}
                 placeholder='Start writing your new note...'
-                defaultValue={'Hello World'}
+                defaultValue={note.content}
             ></Textarea>
         </Container>
     );

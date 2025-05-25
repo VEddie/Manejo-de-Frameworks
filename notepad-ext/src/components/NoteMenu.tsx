@@ -1,7 +1,11 @@
 import { Button, HStack, Menu, Portal, Text } from '@chakra-ui/react';
 import { ImCross } from 'react-icons/im';
 
-const NoteMenu = () => {
+interface Props {
+    title: string;
+}
+
+const NoteMenu = ({ title }: Props) => {
     return (
         <HStack justifyContent='space-between'>
             <Menu.Root>
@@ -27,7 +31,7 @@ const NoteMenu = () => {
                 </Portal>
             </Menu.Root>
             <Text margin='auto'>
-                Unregistered User - Untitled
+                Unregistered User - {title}
             </Text>
             <Button colorPalette='red'>
                 <ImCross />

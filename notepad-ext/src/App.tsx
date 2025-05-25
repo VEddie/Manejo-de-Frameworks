@@ -1,17 +1,18 @@
-import { Container, Grid, GridItem } from '@chakra-ui/react';
 import { useState } from 'react';
+import { Container, Grid, GridItem } from '@chakra-ui/react';
+import { Note } from './interfaces/Note';
 import NoteMenu from './components/NoteMenu';
 import NoteField from './components/NoteField';
 
-interface Note {
-    noteId: number;
-    userId: number;
-    title: string;
-    content: string;
-}
+function App() {
+    const [note, setNote] = useState<Note>({
+        noteId: 0,
+        userId: 0,
+        title: 'Untitled',
+        content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem, repellendus?',
+    });
 
-function App() {    
-    const [note, setNote] = useState<Note>({ noteId: 0, userId: 0, title: 'Untitled', content: '' });
+    // Add custom hook for fetching notes once the main app works.
 
     return (
         <Container fluid>
@@ -22,15 +23,19 @@ function App() {
                 }}
             >
                 <GridItem area='menu' bg='coral'>
-                    <NoteMenu />
+                    <NoteMenu title={note.title} />
                 </GridItem>
 
                 <GridItem area='text' bg='gold'>
-                    <NoteField/>
+                    <NoteField
+                        note={note}
+                        onSetContent={(newContent: string) =>
+                            setNote({ ...note, content: newContent })
+                        }
+                    />
                 </GridItem>
 
-                <GridItem area='list' bg='dodgerblue' width={400}>
-                </GridItem>
+                <GridItem area='list' bg='dodgerblue' width={400}></GridItem>
             </Grid>
         </Container>
 
@@ -41,6 +46,5 @@ function App() {
 
 export default App;
 
-// Needs a container for the UI.
 // Needs a character limit.
 // Add an offcanvas to view notes (?)
