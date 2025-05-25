@@ -8,7 +8,7 @@ function App() {
     const [note, setNote] = useState<Note>({
         noteId: 0,
         userId: 0,
-        title: 'Untitled',
+        title: 'Test Note',
         content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem, repellendus?',
     });
 
@@ -23,7 +23,7 @@ function App() {
                 }}
             >
                 <GridItem area='menu' bg='coral'>
-                    <NoteMenu title={note.title} />
+                    <NoteMenu title={note.title} onSetNote={(newNote: Note) => setNote(newNote)} />
                 </GridItem>
 
                 <GridItem area='text' bg='gold'>
