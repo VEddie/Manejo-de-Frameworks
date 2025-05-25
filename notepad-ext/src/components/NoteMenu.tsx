@@ -3,11 +3,12 @@ import { ImCross } from 'react-icons/im';
 import { Note } from '@/interfaces/Note';
 
 interface Props {
-    title: string;
+    note: Note;
     onSetNote: (newNote: Note) => void;
+    onSetUserNote: (newNote: Note) => void;
 }
 
-const NoteMenu = ({ title, onSetNote }: Props) => {
+const NoteMenu = ({ note, onSetNote, onSetUserNote }: Props) => {
     return (
         <HStack justifyContent='space-between'>
             <Menu.Root>
@@ -22,7 +23,7 @@ const NoteMenu = ({ title, onSetNote }: Props) => {
                                     value='new'
                                     onClick={() => {
                                         onSetNote({
-                                            noteId: 0,
+                                            id: 0,
                                             userId: 0,
                                             content: '',
                                             title: 'Untitled',
@@ -31,7 +32,14 @@ const NoteMenu = ({ title, onSetNote }: Props) => {
                                 >
                                     New
                                 </Menu.Item>
-                                <Menu.Item value='save'>Save</Menu.Item>
+                                <Menu.Item
+                                    value='save'
+                                    onClick={() => {
+                                        onSetUserNote(note);
+                                    }}
+                                >
+                                    Save
+                                </Menu.Item>
                                 <Menu.Item value='load'>Load .txt</Menu.Item>
                                 <Menu.Item
                                     value='delete'
@@ -45,7 +53,7 @@ const NoteMenu = ({ title, onSetNote }: Props) => {
                     </Menu.Positioner>
                 </Portal>
             </Menu.Root>
-            <Text margin='auto'>Unregistered User - {title}</Text>
+            <Text margin='auto'>Unregistered User - {note.title}</Text>
             <Button colorPalette='red'>
                 <ImCross />
             </Button>
