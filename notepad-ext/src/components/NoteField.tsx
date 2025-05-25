@@ -35,7 +35,8 @@ const NoteField = ({ note, onSetContent }: Props) => {
                 cols={50}
                 rows={25}
                 placeholder='Start writing your new note...'
-                defaultValue={note.content}
+                value={note.content}
+                onChange={e => onSetContent(e.target.value)}
             ></Textarea>
         </Container>
     );
