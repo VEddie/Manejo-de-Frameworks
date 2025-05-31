@@ -5,7 +5,7 @@ import { Note } from '@/interfaces/Note';
 interface Props {
     note: Note;
     onSetNote: (newNote: Note) => void;
-    onSetUserNote: (newNote: Note) => void;
+    onSetUserNote: (id: number, newTitle: string) => void;
 }
 
 const NoteMenu = ({ note, onSetNote, onSetUserNote }: Props) => {
@@ -36,15 +36,17 @@ const NoteMenu = ({ note, onSetNote, onSetUserNote }: Props) => {
                                 <Menu.Item
                                     value='save'
                                     onClick={() => {
-                                        onSetUserNote(note);
+                                        let newTitle = prompt('Enter a title');
+                                        if (newTitle?.length) {
+                                            onSetNote({ ...note, title: newTitle })
+                                            onSetUserNote(note.id, newTitle);
+                                        }
                                     }}
                                 >
                                     Save
                                 </Menu.Item>
 
-                                <Menu.Item value='load'>
-                                    Load from .txt
-                                </Menu.Item>
+                                <Menu.Item value='load'>Load from .txt</Menu.Item>
 
                                 <Menu.Item
                                     value='delete'
@@ -58,7 +60,9 @@ const NoteMenu = ({ note, onSetNote, onSetUserNote }: Props) => {
                     </Menu.Positioner>
                 </Portal>
             </Menu.Root>
-            <Text margin='auto' color='white' >Unregistered User - {note.title}</Text>
+            <Text margin='auto' color='white'>
+                Unregistered User - {note.title === '' ? 'Untitled' : note.title}
+            </Text>
             <Button colorPalette='red'>
                 <ImCross />
             </Button>

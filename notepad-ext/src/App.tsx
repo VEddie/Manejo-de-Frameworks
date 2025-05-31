@@ -7,20 +7,17 @@ import NoteCard from './components/NoteCard';
 import FileTest from './components/FileTest';
 
 // TO DO:
-// Fix "save" option so it correctly updates based on note id.
-// Add title prompt when saving a new note.
-// Add delete function.
 // Allow text files to be loaded into the app.
-// Needs a 500 character limit
+// Add delete function.
 // Add basic API to save users & notes.
 // Add custom hook for fetching notes once the main app works.
 // Add an offcanvas to view notes (?)
 
 function App() {
     const [note, setNote] = useState<Note>({
-        id: 1,
+        id: 4,
         userId: 0,
-        title: 'Default title',
+        title: '',
         content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem, repellendus?',
     });
 
@@ -42,11 +39,10 @@ function App() {
                 <GridItem area='menu' bg='gray.muted'>
                     <NoteMenu 
                         note={note} 
-                        onSetNote={(newNote: Note) => setNote(newNote)} 
-                        onSetUserNote={(newNote: Note) => setUserNoteList([...userNoteList, newNote])} />
+                        onSetNote={(newNote: Note) => setNote(newNote)}
+                        onSetUserNote={(id, newTitle) => setUserNoteList(userNoteList.map(n => n.id === id ? {...n, title: newTitle} : n))} />
                 </GridItem>
-
-                {/* Fix note prop duplication. */}
+                        {/*onSetUserNote={(newNote: Note) => setUserNoteList([...userNoteList, newNote])}*/}
 
                 <GridItem area='text' bg='gray.emphasized' height='80vh'>
                     <NoteField

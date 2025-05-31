@@ -31,6 +31,8 @@ const NoteField = ({ note, onSetContent }: Props) => {
             <Textarea
                 ref={noteField}
                 color='white'
+                colorPalette='blue'
+                maxLength={1000}
                 size='lg'
                 mt='2'
                 cols={50}
