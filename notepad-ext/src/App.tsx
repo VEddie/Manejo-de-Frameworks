@@ -6,9 +6,19 @@ import NoteField from './components/NoteField';
 import NoteCard from './components/NoteCard';
 import FileTest from './components/FileTest';
 
+// TO DO:
+// Fix "save" option so it correctly updates based on note id.
+// Add title prompt when saving a new note.
+// Add delete function.
+// Allow text files to be loaded into the app.
+// Needs a 500 character limit
+// Add basic API to save users & notes.
+// Add custom hook for fetching notes once the main app works.
+// Add an offcanvas to view notes (?)
+
 function App() {
     const [note, setNote] = useState<Note>({
-        id: 0,
+        id: 1,
         userId: 0,
         title: 'Default title',
         content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem, repellendus?',
@@ -20,8 +30,6 @@ function App() {
         { id: 3, userId: 1, title: 'Test Note 3', content: 'Test test test test test test test test test test test test' }
     ]);
 
-    // Add custom hook for fetching notes once the main app works.
-
     return (
         <Container fluid>
             <Grid
@@ -31,7 +39,7 @@ function App() {
                     lg: `"menu menu" "text list"`,
                 }}
             >
-                <GridItem area='menu' bg='coral'>
+                <GridItem area='menu' bg='gray.muted'>
                     <NoteMenu 
                         note={note} 
                         onSetNote={(newNote: Note) => setNote(newNote)} 
@@ -40,7 +48,7 @@ function App() {
 
                 {/* Fix note prop duplication. */}
 
-                <GridItem area='text' bg='gold' height='80vh'>
+                <GridItem area='text' bg='gray.emphasized' height='80vh'>
                     <NoteField
                         note={note}
                         onSetContent={(newContent: string) =>
@@ -49,8 +57,8 @@ function App() {
                     />
                 </GridItem>
 
-                <GridItem area='list' bg='dodgerblue' height='80vh' overflow='auto'>
-                    <SimpleGrid columns={2} margin={1} gap={2}>
+                <GridItem area='list' bg='blue.emphasized' height='80vh' overflow='auto'>
+                    <SimpleGrid columns={2} margin={2} gap={2}>
                         {/* <Text textStyle='sm'>
                             There are no saved notes...
                         </Text> */}
@@ -65,12 +73,8 @@ function App() {
         </Container>
 
 
-        // To do later: Add basic API to save users & notes.
-        // Allow text files to be loaded into the app.
+        
     );
 }
 
 export default App;
-
-// Needs a character limit.
-// Add an offcanvas to view notes (?)

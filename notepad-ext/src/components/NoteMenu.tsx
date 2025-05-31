@@ -58,7 +58,7 @@ const NoteMenu = ({ note, onSetNote, onSetUserNote }: Props) => {
                     </Menu.Positioner>
                 </Portal>
             </Menu.Root>
-            <Text margin='auto'>Unregistered User - {note.title}</Text>
+            <Text margin='auto' color='white' >Unregistered User - {note.title}</Text>
             <Button colorPalette='red'>
                 <ImCross />
             </Button>
