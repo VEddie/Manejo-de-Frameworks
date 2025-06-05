@@ -13,13 +13,12 @@ import { Note } from '@/interfaces/Note';
 
 interface Props {
     note: Note;
-    savedNotes: Note[];
     onSetNote: (newNote: Note) => void;
     onAddNote: (newNote: Note) => void;
-    onOverwriteNote: (id: number, newTitle: string) => void;
+    onOverwriteNote: (id: number, newTitle: string, newContent: string) => void;
 }
 
-const NoteMenu = ({ note, savedNotes, onAddNote, onSetNote, onOverwriteNote }: Props) => {
+const NoteMenu = ({ note, onAddNote, onSetNote, onOverwriteNote }: Props) => {
     const fileUpload = useFileUpload();
 
     return (
@@ -49,10 +48,10 @@ const NoteMenu = ({ note, savedNotes, onAddNote, onSetNote, onOverwriteNote }: P
                                 <Menu.Item
                                     value='save'
                                     onClick={() => {
-                                        let newTitle = prompt('Enter a title') || 'Untitled';
-                                        
+                                        let newTitle = prompt('Enter a title', note.title) || 'Untitled';
+
                                         if(note.editable)
-                                            onOverwriteNote(note.id, newTitle);
+                                            onOverwriteNote(note.id, newTitle, note.content);
                                         else {
                                             onAddNote({...note, title: newTitle, editable: true});
                                             onSetNote({...note, title: newTitle, editable: true});

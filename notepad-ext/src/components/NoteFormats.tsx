@@ -9,15 +9,27 @@ interface Props {
 
 const NoteFormats = ({ currentContent, selectedText, onSetContent }: Props) => {
     return (
-        <ButtonGroup gapX={2} size='sm' colorPalette='green' mt='2'>
-            <Button onClick={() => onSetContent(emboldenText(currentContent, selectedText))}>
+        <ButtonGroup gapX={2} size='sm' colorPalette={'blue'} mt='2'>
+            <Button
+                onClick={() => {
+                    if (selectedText) onSetContent(emboldenText(currentContent, selectedText));
+                }}
+            >
                 B
             </Button>
 
-            <Button onClick={() => console.log(itacilizeText(currentContent, selectedText))}>
+            <Button
+                onClick={() => {
+                    if (selectedText) onSetContent(itacilizeText(currentContent, selectedText));
+                }}
+            >
                 I
             </Button>
-            <Button onClick={() => console.log(underlineText(currentContent, selectedText))}>
+            <Button
+                onClick={() => {
+                    if (selectedText) onSetContent(underlineText(currentContent, selectedText));
+                }}
+            >
                 U
             </Button>
         </ButtonGroup>
