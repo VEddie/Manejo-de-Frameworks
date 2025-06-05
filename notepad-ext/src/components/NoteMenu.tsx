@@ -16,6 +16,7 @@ interface Props {
     onSetNote: (newNote: Note) => void;
     onAddNote: (newNote: Note) => void;
     onOverwriteNote: (id: number, newTitle: string, newContent: string) => void;
+    onDeleteNote: (id: number) => void;
 }
 
 const NoteMenu = ({ note, onAddNote, onSetNote, onOverwriteNote }: Props) => {

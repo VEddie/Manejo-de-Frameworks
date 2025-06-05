@@ -6,7 +6,6 @@ import NoteField from './components/NoteField';
 import NoteCard from './components/NoteCard';
 
 // TO DO:
-// Fix format buttons.
 // Add delete function.
 // Add basic API to save users & notes.
 // Add custom hook for fetching notes once the main app works.
@@ -24,24 +23,27 @@ function App() {
             id: 1,
             userId: 1,
             title: 'Test Note 1',
-            content: 'Test test test test test test test test test test test test',
+            content: 'First note',
             editable: true,
         },
         {
             id: 2,
             userId: 1,
             title: 'Test Note 2',
-            content: 'Test test test test test test test test test test test test',
+            content: 'Second note',
             editable: true,
         },
         {
             id: 3,
             userId: 1,
             title: 'Test Note 3',
-            content: 'Test test test test test test test test test test test test',
+            content: 'Third note',
             editable: true,
         },
     ]);
+
+    const editNote = (note: Note) => setNote(savedNotes.find((n) => n.id === note.id) || ({} as Note));
+    const deleteNote = (note: Note) => setSavedNotes(savedNotes.filter((n) => n.id !== note.id));
 
     return (
         <Container fluid>
@@ -64,8 +66,10 @@ function App() {
                                 )
                             )
                         }
+                        onDeleteNote={(id: number) =>
+                            setSavedNotes(savedNotes.filter((n) => id !== n.id))
+                        }
                         // Combine Add + Overwrite
-
                     />
                 </GridItem>
 
@@ -80,10 +84,17 @@ function App() {
 
                 <GridItem area='list' bg='blue.emphasized' height='80vh' overflow='auto'>
                     <SimpleGrid columns={2} margin={2} gap={2}>
-                        {savedNotes.length === 0 && <Text color='white'>There are no saved notes...</Text>}
+                        {savedNotes.length === 0 && (
+                            <Text color='white'>There are no saved notes...</Text>
+                        )}
 
                         {savedNotes.map((userNote) => (
-                            <NoteCard key={userNote.id} note={userNote} />
+                            <NoteCard
+                                key={userNote.id}
+                                note={userNote}
+                                onEdit={() => editNote(userNote)}
+                                onDelete={() => deleteNote(userNote)}
+                            />
                         ))}
                     </SimpleGrid>
                 </GridItem>
