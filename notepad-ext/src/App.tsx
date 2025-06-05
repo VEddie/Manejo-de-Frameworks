@@ -6,12 +6,11 @@ import NoteField from './components/NoteField';
 import NoteCard from './components/NoteCard';
 
 // TO DO:
-// Add delete function.
 // Add basic API to save users & notes.
 // Add custom hook for fetching notes once the main app works.
 
 function App() {
-    const [note, setNote] = useState<Note>({
+    const [currentNote, setCurrentNote] = useState<Note>({
         id: 4,
         userId: 0,
         title: '',
@@ -42,7 +41,15 @@ function App() {
         },
     ]);
 
-    const editNote = (note: Note) => setNote(savedNotes.find((n) => n.id === note.id) || ({} as Note));
+    const addNote = (newNote: Note) => setSavedNotes([...savedNotes, newNote]);
+    const overwriteNote = (id: number, newTitle: string, newContent: string) =>
+        setSavedNotes(
+            savedNotes.map((n) =>
+                n.id === id ? { ...n, title: newTitle, content: newContent } : n
+            )
+        );
+
+    const editNote = (note: Note) => setCurrentNote(savedNotes.find((n) => n.id === note.id) || ({} as Note));
     const deleteNote = (note: Note) => setSavedNotes(savedNotes.filter((n) => n.id !== note.id));
 
     return (
@@ -56,16 +63,10 @@ function App() {
             >
                 <GridItem area='menu' bg='gray.muted'>
                     <NoteMenu
-                        note={note}
-                        onSetNote={(newNote: Note) => setNote(newNote)}
-                        onAddNote={(newNote: Note) => setSavedNotes([...savedNotes, newNote])}
-                        onOverwriteNote={(id, newTitle, newContent) =>
-                            setSavedNotes(
-                                savedNotes.map((n) =>
-                                    n.id === id ? { ...n, title: newTitle, content: newContent } : n
-                                )
-                            )
-                        }
+                        note={currentNote}
+                        onSetNote={(newNote: Note) => setCurrentNote(newNote)}
+                        onAddNote={(newNote: Note) => addNote(newNote)}
+                        onOverwriteNote={overwriteNote}
                         onDeleteNote={(id: number) =>
                             setSavedNotes(savedNotes.filter((n) => id !== n.id))
                         }
@@ -75,9 +76,9 @@ function App() {
 
                 <GridItem area='text' bg='gray.emphasized' height='80vh'>
                     <NoteField
-                        note={note}
+                        note={currentNote}
                         onSetContent={(newContent: string) =>
-                            setNote({ ...note, content: newContent })
+                            setCurrentNote({ ...currentNote, content: newContent })
                         }
                     />
                 </GridItem>

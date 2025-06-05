@@ -49,15 +49,19 @@ const NoteMenu = ({ note, onAddNote, onSetNote, onOverwriteNote }: Props) => {
                                 <Menu.Item
                                     value='save'
                                     onClick={() => {
-                                        let newTitle = prompt('Enter a title', note.title) || 'Untitled';
-
-                                        if(note.editable)
-                                            onOverwriteNote(note.id, newTitle, note.content);
-                                        else {
-                                            onAddNote({...note, title: newTitle, editable: true});
-                                            onSetNote({...note, title: newTitle, editable: true});
-                                            // Needs refactor
+                                        if (note.editable) {
+                                            onOverwriteNote(note.id, note.title, note.content);
+                                            console.log('Overwriting...');
                                         }
+                                        
+
+                                        else {
+                                            let newTitle = prompt('Enter a title', note.title) || 'Untitled';
+                                            onAddNote({ ...note, title: newTitle, editable: true });
+                                            onSetNote({ ...note, title: newTitle, editable: true });
+                                            console.log('Saving...');
+                                        }
+                                        
                                     }}
                                 >
                                     Save
@@ -70,8 +74,11 @@ const NoteMenu = ({ note, onAddNote, onSetNote, onOverwriteNote }: Props) => {
                                                 let fr = new FileReader();
                                                 fr.onload = () => {
                                                     const textContent = fr.result?.toString();
-                                                    if(textContent)
-                                                        onSetNote({ ...note, content: textContent })
+                                                    if (textContent)
+                                                        onSetNote({
+                                                            ...note,
+                                                            content: textContent,
+                                                        });
                                                 };
 
                                                 fr.readAsText(fileUpload.acceptedFiles[0], 'utf-8');
