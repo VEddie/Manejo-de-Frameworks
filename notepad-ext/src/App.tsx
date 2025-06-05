@@ -6,7 +6,7 @@ import NoteField from './components/NoteField';
 import NoteCard from './components/NoteCard';
 
 // TO DO:
-// Allow both add and overwrite files.
+// Fix format buttons
 // Add delete function.
 // Add basic API to save users & notes.
 // Add custom hook for fetching notes once the main app works.
@@ -16,13 +16,13 @@ function App() {
         id: 4,
         userId: 0,
         title: '',
-        content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem, repellendus?',
+        content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem, repellendus?'
     });
 
-    const [userNoteList, setUserNoteList] = useState<Note[]>([
-        { id: 1, userId: 1, title: 'Test Note 1', content: 'Test test test test test test test test test test test test' },
-        { id: 2, userId: 1, title: 'Test Note 2', content: 'Test test test test test test test test test test test test' },
-        { id: 3, userId: 1, title: 'Test Note 3', content: 'Test test test test test test test test test test test test' }
+    const [savedNotes, setSavedNotes] = useState<Note[]>([
+        { id: 1, userId: 1, title: 'Test Note 1', content: 'Test test test test test test test test test test test test', editable: true},
+        { id: 2, userId: 1, title: 'Test Note 2', content: 'Test test test test test test test test test test test test', editable: true },
+        { id: 3, userId: 1, title: 'Test Note 3', content: 'Test test test test test test test test test test test test', editable: true }
     ]);
 
     return (
@@ -37,8 +37,11 @@ function App() {
                 <GridItem area='menu' bg='gray.muted'>
                     <NoteMenu 
                         note={note} 
+                        savedNotes={savedNotes}
                         onSetNote={(newNote: Note) => setNote(newNote)}
-                        onSetUserNote={(id, newTitle) => setUserNoteList(userNoteList.map(n => n.id === id ? {...n, title: newTitle} : n))} />
+                        onAddNote={(newNote: Note) => setSavedNotes([...savedNotes, newNote])}
+                        onOverwriteNote={(id, newTitle) => setSavedNotes(savedNotes.map(n => n.id === id ? {...n, title: newTitle} : n))}
+                        />
                 </GridItem>
                         {/*onSetUserNote={(newNote: Note) => setUserNoteList([...userNoteList, newNote])}*/}
 
@@ -56,7 +59,7 @@ function App() {
                         {/* <Text textStyle='sm'>
                             There are no saved notes...
                         </Text> */}
-                        {userNoteList.map((userNote) => (
+                        {savedNotes.map((userNote) => (
                             <NoteCard key={userNote.id} note={userNote} />
                         ))}
                     </SimpleGrid>

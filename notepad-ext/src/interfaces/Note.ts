@@ -3,4 +3,5 @@ export interface Note {
     userId: number;
     title: string;
     content: string;
+    editable?: boolean;
 };
