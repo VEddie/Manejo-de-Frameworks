@@ -1,4 +1,13 @@
-import { Button, HStack, Menu, Portal, Text } from '@chakra-ui/react';
+import {
+    Button,
+    FileUpload,
+    FileUploadItemContent,
+    HStack,
+    Menu,
+    Portal,
+    Text,
+    useFileUpload,
+} from '@chakra-ui/react';
 import { ImCross } from 'react-icons/im';
 import { Note } from '@/interfaces/Note';
 
@@ -9,6 +18,8 @@ interface Props {
 }
 
 const NoteMenu = ({ note, onSetNote, onSetUserNote }: Props) => {
+    const fileUpload = useFileUpload();
+
     return (
         <HStack justifyContent='space-between'>
             <Menu.Root>
@@ -38,7 +49,7 @@ const NoteMenu = ({ note, onSetNote, onSetUserNote }: Props) => {
                                     onClick={() => {
                                         let newTitle = prompt('Enter a title');
                                         if (newTitle?.length) {
-                                            onSetNote({ ...note, title: newTitle })
+                                            onSetNote({ ...note, title: newTitle });
                                             onSetUserNote(note.id, newTitle);
                                         }
                                     }}
@@ -46,7 +57,34 @@ const NoteMenu = ({ note, onSetNote, onSetUserNote }: Props) => {
                                     Save
                                 </Menu.Item>
 
-                                <Menu.Item value='load'>Load from .txt</Menu.Item>
+                                <Menu.Item value='load' closeOnSelect={false}>
+                                    <FileUpload.RootProvider value={fileUpload}>
+                                        <FileUpload.HiddenInput
+                                            onChange={() => {
+                                                let fr = new FileReader();
+                                                fr.onload = () => {
+                                                    const textContent = fr.result?.toString();
+                                                    if(textContent)
+                                                        onSetNote({ ...note, content: textContent })
+                                                };
+
+                                                fr.readAsText(fileUpload.acceptedFiles[0], 'utf-8');
+                                            }}
+                                        />
+                                        <FileUpload.Trigger asChild>
+                                            <Button
+                                                size='2xs'
+                                                variant='plain'
+                                                padding={0}
+                                                fontWeight={400}
+                                                _hover={{ cursor: 'default' }}
+                                            >
+                                                Load .txt
+                                            </Button>
+                                        </FileUpload.Trigger>
+                                        <FileUploadItemContent />
+                                    </FileUpload.RootProvider>
+                                </Menu.Item>
 
                                 <Menu.Item
                                     value='delete'

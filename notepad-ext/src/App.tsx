@@ -4,14 +4,12 @@ import { Note } from './interfaces/Note';
 import NoteMenu from './components/NoteMenu';
 import NoteField from './components/NoteField';
 import NoteCard from './components/NoteCard';
-import FileTest from './components/FileTest';
 
 // TO DO:
-// Allow text files to be loaded into the app.
+// Allow both add and overwrite files.
 // Add delete function.
 // Add basic API to save users & notes.
 // Add custom hook for fetching notes once the main app works.
-// Add an offcanvas to view notes (?)
 
 function App() {
     const [note, setNote] = useState<Note>({
@@ -64,8 +62,6 @@ function App() {
                     </SimpleGrid>
                 </GridItem>
             </Grid>
-
-            <FileTest/>
         </Container>
 
 
