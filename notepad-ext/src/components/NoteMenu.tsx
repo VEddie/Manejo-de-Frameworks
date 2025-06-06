@@ -10,6 +10,7 @@ import {
 } from '@chakra-ui/react';
 import { ImCross } from 'react-icons/im';
 import { Note } from '@/interfaces/Note';
+import NoteDialog from './NoteDialog';
 
 interface Props {
     note: Note;
@@ -97,6 +98,10 @@ const NoteMenu = ({ note, onAddNote, onSetNote, onOverwriteNote }: Props) => {
                                         </FileUpload.Trigger>
                                         <FileUploadItemContent />
                                     </FileUpload.RootProvider>
+                                </Menu.Item>
+
+                                <Menu.Item value='view' closeOnSelect={false}>
+                                    <NoteDialog/>
                                 </Menu.Item>
 
                                 <Menu.Item
