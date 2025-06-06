@@ -1,11 +1,11 @@
 import { useState } from 'react';
+import { Navigate } from 'react-router-dom';
 import { Container, Grid, GridItem, SimpleGrid, Text } from '@chakra-ui/react';
+import { getCurrentUser, getUserNotes, setNewNote } from './utilities/storageFunctions';
 import NoteMenu from './components/NoteMenu';
 import NoteField from './components/NoteField';
 import NoteCard from './components/NoteCard';
 import Note from './interfaces/Note';
-import { getCurrentUser, getUserNotes, setNewNote } from './utilities/storageFunctions';
-import { Navigate } from 'react-router-dom';
 
 // TO DO:
 // Code refactoring on some components.
@@ -53,7 +53,7 @@ function App() {
                     />
                 </GridItem>
 
-                <GridItem area='text' bg='gray.emphasized' height='80vh'>
+                <GridItem area='text' bg='gray.emphasized' height='60vh'>
                     <NoteField
                         note={currentNote}
                         onSetContent={(newContent: string) =>
@@ -62,7 +62,7 @@ function App() {
                     />
                 </GridItem>
 
-                <GridItem area='list' bg='blue.emphasized' height='80vh' overflow='auto'>
+                <GridItem area='list' bg='blue.emphasized' height='60vh' overflow='auto'>
                     <SimpleGrid columns={2} margin={2} gap={2}>
                         {savedNotes.length === 0 && (
                             <Text color='white'>There are no saved notes...</Text>

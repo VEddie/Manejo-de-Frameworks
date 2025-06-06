@@ -36,7 +36,7 @@ const NoteField = ({ note, onSetContent }: Props) => {
                 size='lg'
                 mt='2'
                 cols={50}
-                rows={28}
+                rows={20}
                 placeholder='Start writing your new note...'
                 value={note.content}
                 onChange={e => onSetContent(e.target.value)}

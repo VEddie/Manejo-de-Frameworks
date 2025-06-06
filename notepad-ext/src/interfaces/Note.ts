@@ -1,5 +1,5 @@
 export default interface Note {
-    id?: number;
+    id: number;
     userId?: number;
     title: string;
     content: string;

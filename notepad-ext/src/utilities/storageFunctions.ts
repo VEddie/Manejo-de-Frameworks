@@ -28,6 +28,11 @@ export const setCurrentUser = (user: User) => {
     localStorage.setItem('currentUser', JSON.stringify(user));
 };
 
+export const deleteCurrentUser = () => {
+    localStorage.removeItem('currentUser');
+}
+
+
 export const getUserList = (): User[] => {
     const data = localStorage.getItem('userList');
 
@@ -42,5 +47,5 @@ export const setUserList = (user: User) => {
 };
 
 export const setNewNote = (): Note => {
-    return { title: 'Untitled', content: '' };
+    return { id: 0, title: 'Untitled', content: '' };
 };

@@ -8,9 +8,11 @@ import {
     Text,
     useFileUpload,
 } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
 import { ImCross } from 'react-icons/im';
 import Note from '@/interfaces/Note';
 import NoteDialog from './NoteDialog';
+import { deleteCurrentUser } from '../utilities/storageFunctions';
 
 interface Props {
     note: Note;
@@ -22,6 +24,7 @@ interface Props {
 
 const NoteMenu = ({ note, onAddNote, onSetNote, onOverwriteNote }: Props) => {
     const fileUpload = useFileUpload();
+    const navigate = useNavigate();
 
     return (
         <HStack justifyContent='space-between'>
@@ -53,16 +56,13 @@ const NoteMenu = ({ note, onAddNote, onSetNote, onOverwriteNote }: Props) => {
                                         if (note.editable) {
                                             onOverwriteNote(note.id, note.title, note.content);
                                             console.log('Overwriting...');
-                                        }
-                                        
-
-                                        else {
-                                            let newTitle = prompt('Enter a title', note.title) || 'Untitled';
+                                        } else {
+                                            let newTitle =
+                                                prompt('Enter a title', note.title) || 'Untitled';
                                             onAddNote({ ...note, title: newTitle, editable: true });
                                             onSetNote({ ...note, title: newTitle, editable: true });
                                             console.log('Saving...');
                                         }
-                                        
                                     }}
                                 >
                                     Save
@@ -101,16 +101,14 @@ const NoteMenu = ({ note, onAddNote, onSetNote, onOverwriteNote }: Props) => {
                                 </Menu.Item>
 
                                 <Menu.Item value='view' closeOnSelect={false}>
-                                    <NoteDialog note={note}/>
+                                    <NoteDialog note={note} />
                                 </Menu.Item>
 
                                 <Menu.Item
                                     value='delete'
                                     color='fg.error'
                                     _hover={{ bg: 'bg.error', color: 'fg.error' }}
-                                >
-                                    Delete
-                                </Menu.Item>
+                                ></Menu.Item>
                             </Menu.ItemGroup>
                         </Menu.Content>
                     </Menu.Positioner>
@@ -119,7 +117,13 @@ const NoteMenu = ({ note, onAddNote, onSetNote, onOverwriteNote }: Props) => {
             <Text margin='auto' color='white'>
                 Unregistered User - {note.title === '' ? 'Untitled' : note.title}
             </Text>
-            <Button colorPalette='red'>
+            <Button
+                onClick={() => {
+                    deleteCurrentUser();
+                    navigate('/');
+                }}
+                colorPalette='red'
+            >
                 <ImCross />
             </Button>
         </HStack>

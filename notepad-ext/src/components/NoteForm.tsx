@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { Button, Field, Input, Stack } from '@chakra-ui/react';
-import User from '@/interfaces/User';
+import User from '../interfaces/User';
 import { getUserList, setCurrentUser } from '../utilities/storageFunctions';
 import { useNavigate } from 'react-router-dom';
 
@@ -15,7 +15,7 @@ const NoteForm = () => {
 
     const onSubmit = handleSubmit((data) => {
         const userCount = getUserList().length + 1;
-        setCurrentUser({ id: userCount, ...data });
+        setCurrentUser({ ...data, id: userCount });
         navigate('/note-app');
     });
 
