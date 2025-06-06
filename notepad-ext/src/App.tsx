@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Container, Grid, GridItem, SimpleGrid, Text } from '@chakra-ui/react';
 import NoteMenu from './components/NoteMenu';
 import NoteField from './components/NoteField';
 import NoteCard from './components/NoteCard';
 import Note from './interfaces/Note';
-import { getUserNotes, setNewNote } from './utilities/storageFunctions';
+import { getCurrentUser, getUserNotes, setNewNote } from './utilities/storageFunctions';
+import { Navigate } from 'react-router-dom';
 
 // TO DO:
 // Code refactoring on some components.
@@ -13,12 +14,11 @@ import { getUserNotes, setNewNote } from './utilities/storageFunctions';
 // Reset note when delete is selected from the menu.
 
 function App() {
-    const [currentNote, setCurrentNote] = useState<Note>(setNewNote());
-    const [savedNotes, setSavedNotes] = useState<Note[]>([]);
+    const currentUser = getCurrentUser();
+    if(!currentUser) return <Navigate to='/'/>
 
-    useEffect(() => {
-        setSavedNotes(getUserNotes(3))
-    }, [])
+    const [currentNote, setCurrentNote] = useState<Note>(setNewNote());
+    const [savedNotes, setSavedNotes] = useState<Note[]>(getUserNotes(currentUser.id));
 
     const addNote = (newNote: Note) => setSavedNotes([...savedNotes, newNote]);
     const overwriteNote = (id: number, newTitle: string, newContent: string) =>

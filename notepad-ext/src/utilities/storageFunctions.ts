@@ -16,10 +16,12 @@ export const setUserNotes = (data: Note[]) => {
     localStorage.setItem('userNotes', JSON.stringify(data));
 };
 
-export const getCurrentUser = () => {
+export const getCurrentUser = (): User => {
     const data = localStorage.getItem('currentUser');
 
     if (data) return JSON.parse(data);
+
+    return {} as User
 };
 
 export const setCurrentUser = (user: User) => {

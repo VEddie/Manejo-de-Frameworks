@@ -1,9 +1,10 @@
-import { createBrowserRouter } from "react-router-dom";
-import LoginPage from "./components/LoginPage";
-import App from "./App";
+import { createBrowserRouter } from 'react-router-dom';
+import App from './App';
+import LoginPage from './components/LoginPage';
+import ErrorPage from './components/ErrorPage';
 
 const router = createBrowserRouter([
-    { path: '/', element: <LoginPage /> },
+    { path: '/', errorElement: <ErrorPage />, element: <LoginPage /> },
     { path: '/note-app', element: <App /> },
 ]);
 
