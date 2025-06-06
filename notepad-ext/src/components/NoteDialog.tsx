@@ -1,6 +1,6 @@
 import { Button, CloseButton, Dialog, Portal } from '@chakra-ui/react';
 import { Prose } from './ui/prose';
-import { Note } from '@/interfaces/Note';
+import Note from '@/interfaces/Note';
 import processTextToHTML from '../utilities/htmlTagFunctions';
 
 interface Props {

@@ -9,7 +9,7 @@ import {
     useFileUpload,
 } from '@chakra-ui/react';
 import { ImCross } from 'react-icons/im';
-import { Note } from '@/interfaces/Note';
+import Note from '@/interfaces/Note';
 import NoteDialog from './NoteDialog';
 
 interface Props {

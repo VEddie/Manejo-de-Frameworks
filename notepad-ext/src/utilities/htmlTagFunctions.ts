@@ -1,4 +1,4 @@
-import { Format } from '@/interfaces/Format';
+import Format from '@/interfaces/Format';
 
 const formats: Format[] = [
     { type: '**', openTag: '<b>', closeTag: '</b>' },

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Container, Textarea } from '@chakra-ui/react';
-import { Note } from '@/interfaces/Note';
+import Note from '@/interfaces/Note';
 import NoteFormats from './NoteFormats';
 
 interface Props {

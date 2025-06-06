@@ -1,4 +1,4 @@
-import { Note } from '@/interfaces/Note';
+import Note from '@/interfaces/Note';
 import { Button, Card } from '@chakra-ui/react';
 
 interface Props {
