@@ -101,7 +101,7 @@ const NoteMenu = ({ note, onAddNote, onSetNote, onOverwriteNote }: Props) => {
                                 </Menu.Item>
 
                                 <Menu.Item value='view' closeOnSelect={false}>
-                                    <NoteDialog/>
+                                    <NoteDialog note={note}/>
                                 </Menu.Item>
 
                                 <Menu.Item

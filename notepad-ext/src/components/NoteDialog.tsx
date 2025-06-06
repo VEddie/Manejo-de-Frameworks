@@ -1,11 +1,18 @@
-import { Note } from '@/interfaces/Note';
 import { Button, CloseButton, Dialog, Portal } from '@chakra-ui/react';
+import { Prose } from './ui/prose';
+import { Note } from '@/interfaces/Note';
+import processTextToHTML from '../utilities/htmlTagFunctions';
 
 interface Props {
     note: Note;
 }
 
-const NoteDialog = () => {
+const NoteDialog = ({ note }: Props) => {
+    const html = String.raw;
+    const content = html`
+        ${processTextToHTML(note.content)}
+        `
+
     return (
         <Dialog.Root scrollBehavior='inside'>
             <Dialog.Trigger asChild>
@@ -18,33 +25,10 @@ const NoteDialog = () => {
                 <Dialog.Positioner>
                     <Dialog.Content color={'white'}>
                         <Dialog.Header>
-                            <Dialog.Title>Dialog Title</Dialog.Title>
+                            <Dialog.Title>{note.title}</Dialog.Title>
                         </Dialog.Header>
                         <Dialog.Body>
-                            <p>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem,
-                                repellendus?Lorem ipsum dolor sit amet consectetur adipisicing elit.
-
-                                Dolorem, repellendus? Lorem ipsum dolor sit amet consectetur
-                                adipisicing elit. Dolorem, repellendus? Lorem ipsum dolor sit amet
-                                consectetur adipisicing elit. 
-                                
-                                Dolorem, repellendus? Lorem ipsum
-                                dolor sit amet consectetur adipisicing elit. Dolorem, repellendus?
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                                
-                                Dolorem, repellendus? Lorem ipsum dolor sit amet consectetur adipisicing
-                                elit. Dolorem, repellendus? Lorem ipsum dolor sit amet consectetur
-                                adipisicing elit. Dolorem, repellendus? Lorem ipsum dolor sit amet
-                                consectetur adipisicing elit. Dolorem, repellendus? Lorem ipsum
-                                dolor sit amet consectetur adipisicing elit. 
-                                
-                                Dolorem, repellendus?
-                                Lorem ipsum dolor sit amet consectetur adipisicing e Lorem ipsum
-                                dolor sit amet consectetur adipisicing elit. Dolorem, repellendus?
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem,
-                                repellendus?
-                            </p>
+                            <Prose dangerouslySetInnerHTML={{ __html: content}}/>
                         </Dialog.Body>
                         <Dialog.Footer>
                             <Dialog.ActionTrigger asChild>

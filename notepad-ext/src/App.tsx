@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import { Button, Container, Grid, GridItem, SimpleGrid, Text } from '@chakra-ui/react';
+import { Container, Grid, GridItem, SimpleGrid, Text } from '@chakra-ui/react';
 import { Note } from './interfaces/Note';
-import processTextToHTML from './utilities/htmlTagFunctions';
 import NoteMenu from './components/NoteMenu';
 import NoteField from './components/NoteField';
 import NoteCard from './components/NoteCard';
@@ -16,7 +15,7 @@ function App() {
     const [currentNote, setCurrentNote] = useState<Note>({
         id: 4,
         userId: 0,
-        title: '',
+        title: 'Untitled',
         content: 'Lorem **ipsum dolor** sit amet consectetur adipisicing elit. --Dolorem--, repellendus? Lorem ipsum dolor sit amet **consectetur** adipisicing elit. Dolorem, __repellendus?__ Lorem ipsum dolor sit amet __consectetur__ adipisicing elit. ~~Dolorem~~, repellendus?',
     });
 
@@ -43,8 +42,6 @@ function App() {
             editable: true,
         },
     ]);
-
-    const html = processTextToHTML(currentNote.content);
 
     const addNote = (newNote: Note) => setSavedNotes([...savedNotes, newNote]);
     const overwriteNote = (id: number, newTitle: string, newContent: string) =>
@@ -105,8 +102,6 @@ function App() {
                     </SimpleGrid>
                 </GridItem>
             </Grid>
-
-            <Button onClick={() => console.log(html)}>Test</Button>
         </Container>
     );
 }
