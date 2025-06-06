@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button, Container, Grid, GridItem, SimpleGrid, Text } from '@chakra-ui/react';
 import NoteMenu from './components/NoteMenu';
 import NoteField from './components/NoteField';
 import NoteCard from './components/NoteCard';
 import Note from './interfaces/Note';
-import { getUserNotes, setUserNotes } from './utilities/fileFunctions';
+import { getUserNotes, setNewNote, setUserNotes } from './utilities/storageFunctions';
+import NoteForm from './components/NoteForm';
 
 // TO DO:
 // Add LocalStorage functions.
@@ -14,37 +15,12 @@ import { getUserNotes, setUserNotes } from './utilities/fileFunctions';
 // Reset note when delete is selected from the menu.
 
 function App() {
-    const [currentNote, setCurrentNote] = useState<Note>({
-        id: 4,
-        userId: 0,
-        title: 'Untitled',
-        content:
-            'Lorem **ipsum dolor** sit amet consectetur adipisicing elit. --Dolorem--, repellendus? Lorem ipsum dolor sit amet **consectetur** adipisicing elit. Dolorem, __repellendus?__ Lorem ipsum dolor sit amet __consectetur__ adipisicing elit. ~~Dolorem~~, repellendus?',
-    });
+    const [currentNote, setCurrentNote] = useState<Note>(setNewNote());
+    const [savedNotes, setSavedNotes] = useState<Note[]>([]);
 
-    const [savedNotes, setSavedNotes] = useState<Note[]>([
-        {
-            id: 1,
-            userId: 1,
-            title: 'Test Note 1',
-            content: 'First note',
-            editable: true,
-        },
-        {
-            id: 2,
-            userId: 1,
-            title: 'Test Note 2',
-            content: 'Second note',
-            editable: true,
-        },
-        {
-            id: 3,
-            userId: 2,
-            title: 'Test Note 3',
-            content: 'Third note',
-            editable: true,
-        },
-    ]);
+    useEffect(() => {
+        setSavedNotes(getUserNotes(3))
+    }, [])
 
     const addNote = (newNote: Note) => setSavedNotes([...savedNotes, newNote]);
     const overwriteNote = (id: number, newTitle: string, newContent: string) =>
@@ -54,8 +30,7 @@ function App() {
             )
         );
 
-    const editNote = (note: Note) =>
-        setCurrentNote(savedNotes.find((n) => n.id === note.id) || ({} as Note));
+    const editNote = (note: Note) => setCurrentNote(savedNotes.find((n) => n.id === note.id) || ({} as Note));
     const deleteNote = (note: Note) => setSavedNotes(savedNotes.filter((n) => n.id !== note.id));
 
     return (
@@ -106,14 +81,7 @@ function App() {
                     </SimpleGrid>
                 </GridItem>
             </Grid>
-            <Button onClick={() => setUserNotes(savedNotes)}>setNotes</Button>
-            <Button
-                onClick={() => {
-                    console.log(getUserNotes(1));
-                }}
-            >
-                getNotes
-            </Button>
+            <NoteForm/>
         </Container>
     );
 }
