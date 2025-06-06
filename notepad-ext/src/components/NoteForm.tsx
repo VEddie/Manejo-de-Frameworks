@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { Button, Field, Input, Stack } from '@chakra-ui/react';
 import User from '@/interfaces/User';
+import { getUserList, setCurrentUser, setUserList } from '../utilities/storageFunctions';
 
 const NoteForm = () => {
     const {
@@ -9,7 +10,11 @@ const NoteForm = () => {
         formState: { errors },
     } = useForm<User>();
 
-    const onSubmit = handleSubmit((data) => console.log(data));
+    const onSubmit = handleSubmit((data) => {
+        const userCount = getUserList().length + 1;
+        setCurrentUser({ id: userCount, ...data });
+        
+    });
 
     return (
         <form onSubmit={onSubmit}>

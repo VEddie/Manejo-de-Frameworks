@@ -1,14 +1,12 @@
 import { useEffect, useState } from 'react';
-import { Button, Container, Grid, GridItem, SimpleGrid, Text } from '@chakra-ui/react';
+import { Container, Grid, GridItem, SimpleGrid, Text } from '@chakra-ui/react';
 import NoteMenu from './components/NoteMenu';
 import NoteField from './components/NoteField';
 import NoteCard from './components/NoteCard';
 import Note from './interfaces/Note';
-import { getUserNotes, setNewNote, setUserNotes } from './utilities/storageFunctions';
-import NoteForm from './components/NoteForm';
+import { getUserNotes, setNewNote } from './utilities/storageFunctions';
 
 // TO DO:
-// Add LocalStorage functions.
 // Code refactoring on some components.
 // Make the UI slightly smaller.
 // Display a character counter at the bottom of the text area.
@@ -81,7 +79,6 @@ function App() {
                     </SimpleGrid>
                 </GridItem>
             </Grid>
-            <NoteForm/>
         </Container>
     );
 }
