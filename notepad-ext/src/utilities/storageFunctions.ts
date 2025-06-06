@@ -16,12 +16,11 @@ export const setUserNotes = (data: Note[]) => {
     localStorage.setItem('userNotes', JSON.stringify(data));
 };
 
-export const getCurrentUser = (): User => {
+
+export const getCurrentUser = () => {
     const data = localStorage.getItem('currentUser');
 
     if (data) return JSON.parse(data);
-
-    return {} as User
 };
 
 export const setCurrentUser = (user: User) => {
@@ -45,6 +44,12 @@ export const setUserList = (user: User) => {
     const users = getUserList();
     localStorage.setItem('userList', JSON.stringify(users.push(user)));
 };
+
+export const userExists = (user: User) => {
+    const users = getUserList();
+    return users.find(u => u.id === user.id);
+    
+}
 
 export const setNewNote = (): Note => {
     return { id: 0, title: 'Untitled', content: '' };

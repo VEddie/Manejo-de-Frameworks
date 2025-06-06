@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Navigate } from 'react-router-dom';
 import { Container, Grid, GridItem, SimpleGrid, Text } from '@chakra-ui/react';
+import { Navigate } from 'react-router-dom';
 import { getCurrentUser, getUserNotes, setNewNote } from './utilities/storageFunctions';
 import NoteMenu from './components/NoteMenu';
 import NoteField from './components/NoteField';
@@ -15,6 +15,8 @@ import Note from './interfaces/Note';
 
 function App() {
     const currentUser = getCurrentUser();
+    console.log(currentUser)
+
     if(!currentUser) return <Navigate to='/'/>
 
     const [currentNote, setCurrentNote] = useState<Note>(setNewNote());
