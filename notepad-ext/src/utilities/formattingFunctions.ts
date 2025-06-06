@@ -9,3 +9,7 @@ export const itacilizeText = (text: string, selectedText: string) => {
 export const underlineText = (text: string, selectedText: string) => {
     return text.replace(selectedText, `--${selectedText}--`);
 };
+
+export const strikeText = (text: string, selectedText: string) => {
+    return text.replace(selectedText, `~~${selectedText}~~`);
+};

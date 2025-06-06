@@ -6,7 +6,6 @@ import NoteField from './components/NoteField';
 import NoteCard from './components/NoteCard';
 
 // TO DO:
-// Display popup to view a note.
 // Add JSON file for storing notes.
 // Add JSON file for registered users.
 // Code refactoring on some components. 
