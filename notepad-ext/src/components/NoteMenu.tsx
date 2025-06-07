@@ -13,7 +13,7 @@ import { ImCross } from 'react-icons/im';
 import Note from '@/interfaces/Note';
 import User from '../interfaces/User';
 import NoteDialog from './NoteDialog';
-import { deleteCurrentUser, getCurrentUser } from '../utilities/storageFunctions';
+import { deleteCurrentUser, getCurrentUser, getNextNoteId, saveNote } from '../utilities/storageFunctions';
 
 interface Props {
     note: Note;
@@ -57,13 +57,16 @@ const NoteMenu = ({ note, onAddNote, onSetNote, onOverwriteNote }: Props) => {
                                     onClick={() => {
                                         if (note.editable) {
                                             onOverwriteNote(note.id, note.title, note.content);
-                                            console.log('Overwriting...');
-                                        } else {
+                                            saveNote({...note })
+                                           
+                                        } 
+                                        
+                                        else {
                                             let newTitle =
                                                 prompt('Enter a title', note.title) || 'Untitled';
                                             onAddNote({ ...note, title: newTitle, editable: true });
                                             onSetNote({ ...note, title: newTitle, editable: true });
-                                            console.log('Saving...');
+                                            saveNote({...note, id: getNextNoteId(), title: newTitle, userId: getCurrentUser().id, editable: true })
                                         }
                                     }}
                                 >
@@ -105,12 +108,6 @@ const NoteMenu = ({ note, onAddNote, onSetNote, onOverwriteNote }: Props) => {
                                 <Menu.Item value='view' closeOnSelect={false}>
                                     <NoteDialog note={note} />
                                 </Menu.Item>
-
-                                <Menu.Item
-                                    value='delete'
-                                    color='fg.error'
-                                    _hover={{ bg: 'bg.error', color: 'fg.error' }}
-                                ></Menu.Item>
                             </Menu.ItemGroup>
                         </Menu.Content>
                     </Menu.Positioner>

@@ -1,5 +1,5 @@
-import Note from '@/interfaces/Note';
-import User from '@/interfaces/User';
+import Note from '../interfaces/Note';
+import User from '../interfaces/User';
 
 export const getUserNotes = (userId: number) => {
     const data = localStorage.getItem('userNotes');
@@ -16,6 +16,27 @@ export const setUserNotes = (data: Note[]) => {
     localStorage.setItem('userNotes', JSON.stringify(data));
 };
 
+export const getNextNoteId = () => {
+    const allNotes = localStorage.getItem('userNotes');
+
+    if(allNotes !== null) {
+        let jsonNotes: Note[] = JSON.parse(allNotes)
+        return jsonNotes.length + 1;
+    }
+    // If array is empty
+    return 1;
+
+}
+
+export const saveNote = (note: Note) => {
+    const allNotes = localStorage.getItem('userNotes');
+
+    if(allNotes !== null) {
+        let jsonNotes: Note[] = JSON.parse(allNotes);
+        jsonNotes.push(note);
+        setUserNotes(jsonNotes);
+    }
+}
 
 export const getCurrentUser = () => {
     const data = localStorage.getItem('currentUser');
@@ -55,7 +76,7 @@ export const userExists = (user: User) => {
 
 export const fetchUser = (username: string, password: string): User => {
     return getUserList().find(u => u.username === username && u.password === password) || {} as User;
-}
+};
 
 export const setNewNote = (): Note => {
     return { id: 0, title: 'Untitled', content: '' };

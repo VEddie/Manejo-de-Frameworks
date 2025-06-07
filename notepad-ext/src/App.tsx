@@ -7,16 +7,9 @@ import NoteField from './components/NoteField';
 import NoteCard from './components/NoteCard';
 import Note from './interfaces/Note';
 
-// TO DO:
-// Code refactoring on some components.
-// Display a character counter at the bottom of the text area.
-// Reset note when delete is selected from the menu.
-
 function App() {
     const currentUser = getCurrentUser();
-    console.log(currentUser)
-
-    if(!currentUser) return <Navigate to='/'/>
+    if (!currentUser) return <Navigate to='/' />;
 
     const [currentNote, setCurrentNote] = useState<Note>(setNewNote());
     const [savedNotes, setSavedNotes] = useState<Note[]>(getUserNotes(currentUser.id));
@@ -85,3 +78,12 @@ function App() {
 }
 
 export default App;
+
+/* 
+[
+{"id":1,"userId":1,"title":"Test Note 1","content":"First note","editable":true},
+{"id":2,"userId":1,"title":"Test Note 2","content":"Second note","editable":true},
+{"id":3,"userId":2,"title":"Test Note 3","content":"Third note","editable":true}
+]
+
+*/
