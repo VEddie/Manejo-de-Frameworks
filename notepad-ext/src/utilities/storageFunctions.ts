@@ -75,13 +75,17 @@ export const getUserList = (): User[] => {
 
 export const setUserList = (user: User) => {
     let users = getUserList();
+
+    // User already exists, go back
+    if(!!users.find(u => u.username === user.username)) return;
+
     users.push(user);
     localStorage.setItem('userList', JSON.stringify(users));
 };
 
 export const userExists = (user: User) => {
     const users = getUserList();
-    if(users.find(u => u.username === user.username && u.password === user.password))
+    if(users.find(u => u.username === user.username))
         return true;
 
     return false;

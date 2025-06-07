@@ -21,7 +21,14 @@ const NoteForm = () => {
 
         else {
             const existingUser = fetchUser(data.username, data.password);
+            
+            console.log(existingUser)
+            if(!existingUser.id) {
+                alert('Invalid password.');
+                return;
+            }
             setCurrentUser(existingUser);
+            
         }
 
         navigate('/note-app');
