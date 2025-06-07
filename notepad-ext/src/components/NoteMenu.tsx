@@ -62,18 +62,18 @@ const NoteMenu = ({ note, onAddNote, onSetNote, onOverwriteNote }: Props) => {
                                         } 
                                         
                                         else {
-                                            let newTitle =
-                                                prompt('Enter a title', note.title) || 'Untitled';
-                                            onAddNote({ ...note, title: newTitle, editable: true });
-                                            onSetNote({ ...note, title: newTitle, editable: true });
-                                            saveNote({...note, id: getNextNoteId(), title: newTitle, userId: getCurrentUser().id, editable: true })
+                                            let newTitle = prompt('Enter a title', note.title) || 'Untitled';
+                                            const noteId = getNextNoteId();
+                                            onAddNote({ ...note, id: noteId, title: newTitle, editable: true });
+                                            onSetNote({ ...note, id: noteId, title: newTitle, editable: true });
+                                            saveNote({...note, id: noteId, title: newTitle, userId: getCurrentUser().id, editable: true })
                                         }
                                     }}
                                 >
                                     Save
                                 </Menu.Item>
 
-                                <Menu.Item value='load' closeOnSelect={false}>
+                                <Menu.Item value='load' closeOnSelect={false} autoFocus={false}>
                                     <FileUpload.RootProvider value={fileUpload}>
                                         <FileUpload.HiddenInput
                                             onChange={() => {
@@ -89,6 +89,7 @@ const NoteMenu = ({ note, onAddNote, onSetNote, onOverwriteNote }: Props) => {
 
                                                 fr.readAsText(fileUpload.acceptedFiles[0], 'utf-8');
                                             }}
+                                            autoFocus={false}
                                         />
                                         <FileUpload.Trigger asChild>
                                             <Button
@@ -97,6 +98,7 @@ const NoteMenu = ({ note, onAddNote, onSetNote, onOverwriteNote }: Props) => {
                                                 padding={0}
                                                 fontWeight={400}
                                                 _hover={{ cursor: 'default' }}
+                                                autoFocus={false}
                                             >
                                                 Load .txt
                                             </Button>

@@ -45,6 +45,7 @@ export const saveNote = (note: Note) => {
 }
 
 export const deleteUserNote = (noteId: number) => {
+    console.log(`Deleting note with ID: ${noteId}`)
     const allNotes = localStorage.getItem('userNotes') || '[]';
     let jsonNotes: Note[] = JSON.parse(allNotes);
     let filteredNotes = jsonNotes.filter(n => n.id !== noteId);

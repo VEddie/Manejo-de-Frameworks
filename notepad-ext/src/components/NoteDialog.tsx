@@ -11,12 +11,18 @@ const NoteDialog = ({ note }: Props) => {
     const html = String.raw;
     const content = html`
         ${processTextToHTML(note.content)}
-        `
+        `;
 
     return (
         <Dialog.Root scrollBehavior='inside'>
             <Dialog.Trigger asChild>
-                <Button variant='outline' size='sm'>
+                <Button
+                    size='2xs'
+                    variant='plain'
+                    padding={0}
+                    fontWeight={400}
+                    _hover={{ cursor: 'default' }}
+                >
                     View
                 </Button>
             </Dialog.Trigger>
@@ -28,7 +34,7 @@ const NoteDialog = ({ note }: Props) => {
                             <Dialog.Title>{note.title}</Dialog.Title>
                         </Dialog.Header>
                         <Dialog.Body>
-                            <Prose dangerouslySetInnerHTML={{ __html: content}}/>
+                            <Prose dangerouslySetInnerHTML={{ __html: content }} />
                         </Dialog.Body>
                         <Dialog.Footer>
                             <Dialog.ActionTrigger asChild>
