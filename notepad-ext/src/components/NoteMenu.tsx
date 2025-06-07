@@ -11,8 +11,9 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { ImCross } from 'react-icons/im';
 import Note from '@/interfaces/Note';
+import User from '../interfaces/User';
 import NoteDialog from './NoteDialog';
-import { deleteCurrentUser } from '../utilities/storageFunctions';
+import { deleteCurrentUser, getCurrentUser } from '../utilities/storageFunctions';
 
 interface Props {
     note: Note;
@@ -25,6 +26,7 @@ interface Props {
 const NoteMenu = ({ note, onAddNote, onSetNote, onOverwriteNote }: Props) => {
     const fileUpload = useFileUpload();
     const navigate = useNavigate();
+    const user: User = getCurrentUser()
 
     return (
         <HStack justifyContent='space-between'>
@@ -115,7 +117,7 @@ const NoteMenu = ({ note, onAddNote, onSetNote, onOverwriteNote }: Props) => {
                 </Portal>
             </Menu.Root>
             <Text margin='auto' color='white'>
-                Unregistered User - {note.title === '' ? 'Untitled' : note.title}
+                {user.username} - {note.title === '' ? 'Untitled' : note.title}
             </Text>
             <Button
                 onClick={() => {

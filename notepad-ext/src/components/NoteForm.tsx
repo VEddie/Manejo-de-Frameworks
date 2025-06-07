@@ -1,8 +1,8 @@
 import { useForm } from 'react-hook-form';
 import { Button, Field, Input, Stack } from '@chakra-ui/react';
-import User from '../interfaces/User';
-import { getUserList, setCurrentUser, setUserList, userExists } from '../utilities/storageFunctions';
 import { useNavigate } from 'react-router-dom';
+import { fetchUser, getUserList, setCurrentUser, setUserList, userExists } from '../utilities/storageFunctions';
+import User from '../interfaces/User';
 
 const NoteForm = () => {
     const {
@@ -14,13 +14,18 @@ const NoteForm = () => {
     const navigate = useNavigate();
 
     const onSubmit = handleSubmit((data) => {
-        const userCount = getUserList().length + 1;
-        setCurrentUser({ ...data, id: userCount });
-        
-        if(!userExists(data))
-            setUserList(data);
-        
+        if(!userExists(data)) {
+            setCurrentUser({...data, id: getUserList().length + 1});
+            setUserList({...data, id: getUserList().length + 1});
+        }
+
+        else {
+            const existingUser = fetchUser(data.username, data.password);
+            setCurrentUser(existingUser);
+        }
+
         navigate('/note-app');
+        
     });
 
     return (
@@ -45,7 +50,6 @@ const NoteForm = () => {
                     <Input {...register('password')} type='password' />
                     <Field.ErrorText>{errors.password?.message}</Field.ErrorText>
                 </Field.Root>
-
                 <Button type='submit' variant={'subtle'}>Entrar</Button>
             </Stack>
         </form>

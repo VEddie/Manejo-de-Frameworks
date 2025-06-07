@@ -9,7 +9,6 @@ import Note from './interfaces/Note';
 
 // TO DO:
 // Code refactoring on some components.
-// Make the UI slightly smaller.
 // Display a character counter at the bottom of the text area.
 // Reset note when delete is selected from the menu.
 

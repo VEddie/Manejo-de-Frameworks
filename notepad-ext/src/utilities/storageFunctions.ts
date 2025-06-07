@@ -31,7 +31,6 @@ export const deleteCurrentUser = () => {
     localStorage.removeItem('currentUser');
 }
 
-
 export const getUserList = (): User[] => {
     const data = localStorage.getItem('userList');
 
@@ -41,14 +40,21 @@ export const getUserList = (): User[] => {
 };
 
 export const setUserList = (user: User) => {
-    const users = getUserList();
-    localStorage.setItem('userList', JSON.stringify(users.push(user)));
+    let users = getUserList();
+    users.push(user);
+    localStorage.setItem('userList', JSON.stringify(users));
 };
 
 export const userExists = (user: User) => {
     const users = getUserList();
-    return users.find(u => u.id === user.id);
-    
+    if(users.find(u => u.username === user.username && u.password === user.password))
+        return true;
+
+    return false;
+}
+
+export const fetchUser = (username: string, password: string): User => {
+    return getUserList().find(u => u.username === username && u.password === password) || {} as User;
 }
 
 export const setNewNote = (): Note => {
