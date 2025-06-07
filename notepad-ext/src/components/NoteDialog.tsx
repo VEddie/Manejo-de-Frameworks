@@ -22,6 +22,8 @@ const NoteDialog = ({ note }: Props) => {
                     padding={0}
                     fontWeight={400}
                     _hover={{ cursor: 'default' }}
+                    flexGrow={1}
+                    justifyContent={'flex-start'}
                 >
                     View
                 </Button>

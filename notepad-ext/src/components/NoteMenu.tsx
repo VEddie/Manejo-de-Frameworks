@@ -73,8 +73,8 @@ const NoteMenu = ({ note, onAddNote, onSetNote, onOverwriteNote }: Props) => {
                                     Save
                                 </Menu.Item>
 
-                                <Menu.Item value='load' closeOnSelect={false} autoFocus={false}>
-                                    <FileUpload.RootProvider value={fileUpload}>
+                                <Menu.Item value='load' closeOnSelect={false}>
+                                    <FileUpload.RootProvider value={fileUpload} flexShrink={1}>
                                         <FileUpload.HiddenInput
                                             onChange={() => {
                                                 let fr = new FileReader();
@@ -89,16 +89,16 @@ const NoteMenu = ({ note, onAddNote, onSetNote, onOverwriteNote }: Props) => {
 
                                                 fr.readAsText(fileUpload.acceptedFiles[0], 'utf-8');
                                             }}
-                                            autoFocus={false}
                                         />
-                                        <FileUpload.Trigger asChild>
+                                        <FileUpload.Trigger asChild >
                                             <Button
                                                 size='2xs'
                                                 variant='plain'
                                                 padding={0}
                                                 fontWeight={400}
+                                                width={100}
+                                                justifyContent={'flex-start'}
                                                 _hover={{ cursor: 'default' }}
-                                                autoFocus={false}
                                             >
                                                 Load .txt
                                             </Button>

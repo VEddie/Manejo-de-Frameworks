@@ -48,7 +48,6 @@ function App() {
                         onDeleteNote={(id: number) =>
                             setSavedNotes(savedNotes.filter((n) => id !== n.id))
                         }
-                        // Combine Add + Overwrite
                     />
                 </GridItem>
 
@@ -83,12 +82,3 @@ function App() {
 }
 
 export default App;
-
-/* 
-[
-{"id":1,"userId":1,"title":"Test Note 1","content":"First note","editable":true},
-{"id":2,"userId":1,"title":"Test Note 2","content":"Second note","editable":true},
-{"id":3,"userId":2,"title":"Test Note 3","content":"Third note","editable":true}
-]
-
-*/
