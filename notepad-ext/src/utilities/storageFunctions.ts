@@ -31,9 +31,11 @@ export const getNextNoteId = () => {
 export const saveNote = (note: Note) => {
     const allNotes = localStorage.getItem('userNotes') || '[]';
     let jsonNotes: Note[] = JSON.parse(allNotes);
-    if(jsonNotes.includes(note)) {
+
+    if(!!jsonNotes.find(n => n.id === note.id)) {
         const editedNotes = jsonNotes.map(n => n.id === note.id ? {...n, content: note.content} : n)
-        setUserNotes(editedNotes)
+        setUserNotes(editedNotes);
+        return;
     }
         
     else
