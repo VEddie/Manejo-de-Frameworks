@@ -16,7 +16,6 @@ const NoteField = ({ note, onSetContent }: Props) => {
         if (noteField.current) {
             noteField.current.addEventListener('selectionchange', () => {
                 setSelectedText(document.getSelection()?.toString() || '');
-                // To fix later.
             });
         }
     }, []);

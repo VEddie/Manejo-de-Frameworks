@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Container, Grid, GridItem, SimpleGrid, Text } from '@chakra-ui/react';
 import { Navigate } from 'react-router-dom';
-import { getCurrentUser, getUserNotes, setNewNote } from './utilities/storageFunctions';
+import { getCurrentUser, getUserNotes, setNewNote, deleteUserNote } from './utilities/storageFunctions';
 import NoteMenu from './components/NoteMenu';
 import NoteField from './components/NoteField';
 import NoteCard from './components/NoteCard';
@@ -23,7 +23,12 @@ function App() {
         );
 
     const editNote = (note: Note) => setCurrentNote(savedNotes.find((n) => n.id === note.id) || ({} as Note));
-    const deleteNote = (note: Note) => setSavedNotes(savedNotes.filter((n) => n.id !== note.id));
+
+    
+    const deleteNote = (note: Note) => { 
+        setSavedNotes(savedNotes.filter((n) => n.id !== note.id));
+        deleteUserNote(note.id); 
+    };
 
     return (
         <Container fluid>

@@ -29,13 +29,24 @@ export const getNextNoteId = () => {
 }
 
 export const saveNote = (note: Note) => {
-    const allNotes = localStorage.getItem('userNotes');
-
-    if(allNotes !== null) {
-        let jsonNotes: Note[] = JSON.parse(allNotes);
-        jsonNotes.push(note);
-        setUserNotes(jsonNotes);
+    const allNotes = localStorage.getItem('userNotes') || '[]';
+    let jsonNotes: Note[] = JSON.parse(allNotes);
+    if(jsonNotes.includes(note)) {
+        const editedNotes = jsonNotes.map(n => n.id === note.id ? {...n, content: note.content} : n)
+        setUserNotes(editedNotes)
     }
+        
+    else
+        jsonNotes.push(note);
+
+    setUserNotes(jsonNotes);
+}
+
+export const deleteUserNote = (noteId: number) => {
+    const allNotes = localStorage.getItem('userNotes') || '[]';
+    let jsonNotes: Note[] = JSON.parse(allNotes);
+    let filteredNotes = jsonNotes.filter(n => n.id !== noteId);
+    setUserNotes(filteredNotes);
 }
 
 export const getCurrentUser = () => {
