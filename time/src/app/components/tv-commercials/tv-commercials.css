@@ -1,0 +1,27 @@
+.tv-container {
+    border: 1px red solid;
+    height: 600px;
+    width: 600px;
+}
+
+.tv {
+    z-index: 20;
+    
+}
+
+.ad-container {
+    width: 345px;
+    height: 280px;
+    position: absolute;
+    left: 105px;
+    bottom: 515px;
+    /* border: 1px solid blue; */
+    border-radius: 75px;
+}
+
+.ad {
+    width: 345px;
+    height: 280px;
+    border-radius: 75px;
+    object-fit: fill;
+}

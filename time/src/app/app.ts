@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { TvCommercials } from './components/tv-commercials/tv-commercials';
 
 @Component({
   selector: 'app-root',
-  imports: [],
+  imports: [TvCommercials],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
