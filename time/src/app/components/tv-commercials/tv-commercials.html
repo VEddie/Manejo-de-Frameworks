@@ -1,7 +1,11 @@
 <div class="tv-container">
     <img src="img/tv/retro-tv.png" class="img-fluid">
     <div class="ad-container">
-        <img src="{{ videoList[currentSrc] }}" class="img-fluid ad">
+        @if(timeLeft > 0) {
+            <img src="{{ videoList[currentSrc] }}" class="img-fluid ad">
+        }@else {
+            <img src="/videos/video4.jpg" class="img-fluid ad">
+        }
     </div>
 </div>
 <!-- <button (click)="start()" class="btn btn-primary">Start</button> -->

@@ -17,7 +17,6 @@ export class TvCommercials {
         '/videos/video1.jpg',
         '/videos/video2.jpg',
         '/videos/video3.jpg',
-        '/videos/video4.jpg',
     ]
 
     startTimer() {
@@ -27,13 +26,13 @@ export class TvCommercials {
         }, 1000);
 
         this.videoInterval = setInterval(() => {
-            console.log('random');
-            this.currentSrc = Math.floor(Math.random() * 4);
+            this.currentSrc = Math.floor(Math.random() * 3);
         }, 2000)
     }
 
     pauseTimer() {
         clearInterval(this.interval);
+        clearInterval(this.videoInterval);
     }
 }
 
