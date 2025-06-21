@@ -20,7 +20,6 @@ export class BatteryCharge {
     }
 
     ngAfterViewInit(): void {
-        // grab the 2d drawing context
         this.ctx = this.canvasRef.nativeElement.getContext('2d')!;
         this.drawSample();
     }
@@ -30,9 +29,7 @@ export class BatteryCharge {
     }
 
     private async drawSample(): Promise<void> {
-        // Min 10 width, Max 140 width
-        // Yellow: #FADF63 @ 50% progress
-        // Green: #57C75C @ 75% progress
+        // Min 10 width, Max 136 width
         this.ctx.lineWidth = 3;
         this.ctx.strokeStyle = 'white';
         this.ctx.strokeRect(75, 240, 140, 59);
@@ -50,7 +47,7 @@ export class BatteryCharge {
             this.ctx.clearRect(115, 190, 80, 45);
             this.ctx.strokeText(`${Math.floor((this.chargeValue/136) * 100)}%`, 120, 220);
 
-            await this.sleep(50);
+            await this.sleep(10);
             this.chargeValue += 9;
         }
     }
