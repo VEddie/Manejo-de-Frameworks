@@ -19,8 +19,10 @@
     "@angular/platform-server": "^20.0.0",
     "@angular/router": "^20.0.0",
     "@angular/ssr": "^20.0.2",
+    "@types/fabric": "^5.3.10",
     "bootstrap": "^5.3.7",
     "express": "^5.1.0",
+    "fabric": "^6.7.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"

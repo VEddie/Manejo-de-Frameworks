@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { TvCommercials } from './components/tv-commercials/tv-commercials';
+import { BatteryCharge } from './components/battery-charge/battery-charge';
 
 @Component({
   selector: 'app-root',
-  imports: [TvCommercials],
+  imports: [BatteryCharge],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
