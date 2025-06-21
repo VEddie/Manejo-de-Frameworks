@@ -37,6 +37,9 @@ export class BatteryCharge {
         this.ctx.strokeStyle = 'white';
         this.ctx.strokeRect(75, 240, 140, 59);
 
+        this.ctx.font = '20px Verdana';
+        this.ctx.strokeText('0%', 135, 220);
+
         while (this.chargeValue <= 136) {
             if (this.chargeValue < 70) this.ctx.fillStyle = '#E05C4C';
             else if (this.chargeValue < 100) this.ctx.fillStyle = '#FADF63';
@@ -44,7 +47,10 @@ export class BatteryCharge {
 
             this.ctx.fillRect(77, 241, this.chargeValue, 56);
 
-            await this.sleep(25);
+            this.ctx.clearRect(115, 190, 80, 45);
+            this.ctx.strokeText(`${Math.floor((this.chargeValue/136) * 100)}%`, 120, 220);
+
+            await this.sleep(50);
             this.chargeValue += 9;
         }
     }
