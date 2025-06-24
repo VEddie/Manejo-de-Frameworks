@@ -6,10 +6,11 @@ import { TreeGrowth } from './components/tree-growth/tree-growth';
 import { PlanetRotation } from './components/planet-rotation/planet-rotation';
 import { Candelabra } from './components/candelabra/candelabra';
 import { DayNightCycle } from './components/day-night-cycle/day-night-cycle';
+import { Bird } from './components/bird/bird';
 
 @Component({
   selector: 'app-root',
-  imports: [DayNightCycle],
+  imports: [Bird],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

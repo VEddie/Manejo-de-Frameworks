@@ -1,0 +1,12 @@
+<div class="container d-flex justify-content-center">
+    <canvas #birdCanvas height="600" width="600" class="prairie"></canvas>
+</div>
+
+<div class="container d-flex justify-content-center">
+    <button (click)="fly()" class="btn btn-primary mt-2">Start</button>
+</div>
+<div class="d-none">
+    <img #flyingBird src="img/bird/flying_bird.png"/>
+    <img #birdNest src="img/bird/bird_nest.png"/>
+    <img #birdInNest src="img/bird/bird_in_nest.png"/>
+</div>
