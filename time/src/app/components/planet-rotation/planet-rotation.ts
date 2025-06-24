@@ -39,7 +39,6 @@ export class PlanetRotation {
     }
     
     draw() {
-        this.counter++;
         this.ctx.clearRect(0, 0, 500, 500);
         this.ctx.beginPath();
         this.ctx.ellipse(250, 250, 160, 210, Math.PI / 2, 0, 2 * Math.PI);
@@ -49,7 +48,8 @@ export class PlanetRotation {
     }
     
     start() {
-        if(this.counter === 7) this.counter = 0;
+        this.counter++;
+        if(this.counter === 8) this.counter = 0;
 
         console.log('moving');
         this.draw();        
