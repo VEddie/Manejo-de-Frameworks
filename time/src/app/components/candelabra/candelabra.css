@@ -1,0 +1,6 @@
+.candelabra {
+    border: 1px solid black; 
+    background-image: url('/img/candelabra/candelabra.jpeg');
+    background-size: cover;
+    background-position: center;
+}

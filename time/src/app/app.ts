@@ -4,10 +4,11 @@ import { BatteryCharge } from './components/battery-charge/battery-charge';
 import { KitchenTimer } from './components/kitchen-timer/kitchen-timer';
 import { TreeGrowth } from './components/tree-growth/tree-growth';
 import { PlanetRotation } from './components/planet-rotation/planet-rotation';
+import { Candelabra } from './components/candelabra/candelabra';
 
 @Component({
   selector: 'app-root',
-  imports: [PlanetRotation],
+  imports: [Candelabra],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
