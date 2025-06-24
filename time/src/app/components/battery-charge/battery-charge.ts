@@ -29,7 +29,6 @@ export class BatteryCharge {
     }
 
     private async drawSample(): Promise<void> {
-        // Min 10 width, Max 136 width
         this.ctx.lineWidth = 3;
         this.ctx.strokeStyle = 'white';
         this.ctx.strokeRect(75, 240, 140, 59);

@@ -6,7 +6,7 @@ import { TreeGrowth } from './components/tree-growth/tree-growth';
 
 @Component({
   selector: 'app-root',
-  imports: [TreeGrowth],
+  imports: [KitchenTimer],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
