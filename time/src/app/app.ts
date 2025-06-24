@@ -5,10 +5,11 @@ import { KitchenTimer } from './components/kitchen-timer/kitchen-timer';
 import { TreeGrowth } from './components/tree-growth/tree-growth';
 import { PlanetRotation } from './components/planet-rotation/planet-rotation';
 import { Candelabra } from './components/candelabra/candelabra';
+import { DayNightCycle } from './components/day-night-cycle/day-night-cycle';
 
 @Component({
   selector: 'app-root',
-  imports: [Candelabra],
+  imports: [DayNightCycle],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
