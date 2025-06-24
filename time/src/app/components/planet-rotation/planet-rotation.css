@@ -1,0 +1,10 @@
+canvas {
+    border: 1px solid black; 
+    background-image: url('/img/planet-rotation/sun.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.hide {
+    visibility: hidden;
+}

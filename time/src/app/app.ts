@@ -3,10 +3,11 @@ import { TvCommercials } from './components/tv-commercials/tv-commercials';
 import { BatteryCharge } from './components/battery-charge/battery-charge';
 import { KitchenTimer } from './components/kitchen-timer/kitchen-timer';
 import { TreeGrowth } from './components/tree-growth/tree-growth';
+import { PlanetRotation } from './components/planet-rotation/planet-rotation';
 
 @Component({
   selector: 'app-root',
-  imports: [KitchenTimer],
+  imports: [PlanetRotation],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
