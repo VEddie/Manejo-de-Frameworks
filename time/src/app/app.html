@@ -1,3 +1,64 @@
+<nav class="navbar navbar-expand bg-body-secondary">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <select #componentList (change)="check($event)"class="form-select">
+                        <option value=0>Component List</option>
+                        <option value=1>Battery Charge</option>
+                        <option value=2>Bird</option>
+                        <option value=3>Candelabra</option>
+                        <option value=4>Day & Night Cycle</option>
+                        <option value=5>Gas Meter</option>
+                        <option value=6>Kitchen Timer</option>
+                        <option value=7>Microwave</option>
+                        <option value=8>Planet Rotation</option>
+                        <option value=9>Tree Growth</option>
+                        <option value=10>TV Commercials</option>
+                    </select>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+@switch(selectedComponent) {
+    @case (1) {
+        <battery-charge />
+    }
+    @case (2) {
+        <bird />
+    }
+    @case (3) {
+        <candelabra />
+    }
+    @case (4) {
+        <day-night-cycle />
+    }
+    @case (5) {
+        <gas-meter />
+    }
+    @case (6) {
+        <kitchen-timer />
+    }
+    @case (7) {
+        <microwave />
+    }
+    @case (8) {
+        <planet-rotation />
+    }
+    @case (9) {
+        <tree-growth [sec]=10 />
+    }
+    @case (10) {
+        <tv-commercials />
+    }
+
+    @default {
+        <p>Please select a component.</p>
+    }
+}
+
 <!-- <tv-commercials></tv-commercials> -->
 <!-- <battery-charge></battery-charge> -->
 <!-- <kitchen-timer></kitchen-timer> -->
@@ -7,4 +68,4 @@
 <!-- <day-night-cycle></day-night-cycle> -->
 <!-- <bird></bird> -->
 <!-- <gas-meter></gas-meter> -->
- <microwave></microwave>
+<!-- <microwave></microwave> -->

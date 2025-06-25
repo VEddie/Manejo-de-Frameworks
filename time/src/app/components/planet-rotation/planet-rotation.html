@@ -1,4 +1,9 @@
-<canvas #rotationCanvas height="500" width="500"></canvas>
-<img #earth src="img/planet-rotation/earth.png" class="hide">
+<div class="container d-flex justify-content-center">
+    <canvas #rotationCanvas height="500" width="500"></canvas>
+</div>
 
-<button (click)="start()" class="btn btn-primary">Start</button>
+<div class="container d-flex justify-content-center mt-3">
+    <button (click)="start()" class="btn btn-primary">Start</button>
+</div>
+
+<img #earth src="/img/planet-rotation/earth.png" class="d-none">

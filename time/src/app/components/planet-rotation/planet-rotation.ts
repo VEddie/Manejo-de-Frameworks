@@ -43,14 +43,16 @@ export class PlanetRotation {
         this.ctx.beginPath();
         this.ctx.ellipse(250, 250, 160, 210, Math.PI / 2, 0, 2 * Math.PI);
         this.ctx.stroke();
-        this.ctx.drawImage(this.planet.nativeElement, this.coordinates[this.counter].x, this.coordinates[this.counter].y)
 
+        this.planet.nativeElement.addEventListener('load', () => {
+            this.ctx.drawImage(this.planet.nativeElement, this.coordinates[this.counter].x, this.coordinates[this.counter].y);
+        });
+        
     }
     
     start() {
         this.counter++;
         if(this.counter === 8) this.counter = 0;
-
         console.log('moving');
         this.draw();        
     }
