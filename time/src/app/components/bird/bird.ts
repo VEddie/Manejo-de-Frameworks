@@ -12,15 +12,13 @@ export class Bird {
     @ViewChild('birdNest', { static: false}) birdNest!: ElementRef<HTMLImageElement>;
     @ViewChild('birdInNest', { static: false}) birdInNest!: ElementRef<HTMLImageElement>;
     ctx!: CanvasRenderingContext2D;
-    position = 525;
+    position = 600;
     flyInterval!: NodeJS.Timeout; 
 
     ngAfterViewInit() {
         this.ctx = this.canvasRef.nativeElement.getContext('2d')!;
         this.ctx.drawImage(this.flyingBird.nativeElement, this.position, 250, 64, 64);
         this.ctx.drawImage(this.birdNest.nativeElement, 125, 250, 64, 64);
-        
-
     }
 
      fly() {
@@ -36,10 +34,5 @@ export class Bird {
                 return;
             } 
         }, 10)
-            
-        
-            
-        
-        
     }
 }

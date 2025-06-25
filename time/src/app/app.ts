@@ -7,10 +7,11 @@ import { PlanetRotation } from './components/planet-rotation/planet-rotation';
 import { Candelabra } from './components/candelabra/candelabra';
 import { DayNightCycle } from './components/day-night-cycle/day-night-cycle';
 import { Bird } from './components/bird/bird';
+import { GasMeter } from './components/gas-meter/gas-meter';
 
 @Component({
   selector: 'app-root',
-  imports: [Bird],
+  imports: [GasMeter],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
