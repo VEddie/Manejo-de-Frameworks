@@ -1,5 +1,5 @@
 @if(!isLoggedIn) {
-    <login />
+    <register />
 }
 
 @else {
@@ -60,7 +60,7 @@
         }
     
         @default {
-            <p>Please select a component.</p>
+            <login />
         }
     }
 }
