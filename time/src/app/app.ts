@@ -9,10 +9,11 @@ import { Microwave } from './components/microwave/microwave';
 import { PlanetRotation } from './components/planet-rotation/planet-rotation';
 import { TreeGrowth } from './components/tree-growth/tree-growth';
 import { TvCommercials } from './components/tv-commercials/tv-commercials';
+import { Login } from './pages/login/login';
 
 @Component({
     selector: 'app-root',
-    imports: [BatteryCharge, Bird, Candelabra, DayNightCycle, GasMeter, KitchenTimer, Microwave, PlanetRotation, TreeGrowth, TvCommercials],
+    imports: [BatteryCharge, Bird, Candelabra, DayNightCycle, GasMeter, KitchenTimer, Microwave, PlanetRotation, TreeGrowth, TvCommercials, Login],
     templateUrl: './app.html',
     styleUrl: './app.css',
 })
@@ -20,6 +21,7 @@ export class App {
     protected title = 'Time Components';
     @ViewChild('componentList') list!: ElementRef<HTMLSelectElement>;
     selectedComponent = 0;
+    isLoggedIn = false;
 
     //lookup event type
     check(event: any) {
