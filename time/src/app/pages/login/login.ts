@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
+import { UserService } from '../../services/user-service';
+import { fetchUserData } from '../../utilities/functions';
 
 @Component({
   selector: 'login',
@@ -8,7 +10,14 @@ import { FormsModule, NgForm } from '@angular/forms';
   styleUrl: './login.css'
 })
 export class Login {
+    constructor(private userService: UserService) {}
+
     submit(formData: NgForm) {
-        console.log(formData.value);
+        this.userService.getAll().subscribe(res => {
+            if(fetchUserData(res, formData.value)) 
+                console.log("This user exists.")
+            else
+                console.log("This user doesn't exist.")
+        })
     }
 }

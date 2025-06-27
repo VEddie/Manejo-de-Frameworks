@@ -46,15 +46,6 @@ export class App {
     @ViewChild('componentList') list!: ElementRef<HTMLSelectElement>;
     selectedComponent = 0;
     isLoggedIn = false;
- 
-    constructor(private userService: UserService) {}
-
-    ngOnInit() {
-        this.userService.getAll().subscribe(res => console.log(res));
-        this.userService.register(testUser).subscribe(res => console.log('User has been successfully added.', res));
-    }
-   
-
     
     //lookup event type
     check(event: any) {
