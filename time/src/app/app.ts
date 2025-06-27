@@ -11,7 +11,7 @@ import { TreeGrowth } from './components/tree-growth/tree-growth';
 import { TvCommercials } from './components/tv-commercials/tv-commercials';
 import { Login } from './pages/login/login';
 import { Register } from './pages/register/register';
-import { UserService } from './services/user-service';
+import { User } from './services/user-service';
 
 const testUser = {
     firstName: 'Andreha',
@@ -35,8 +35,7 @@ const testUser = {
         TreeGrowth,
         TvCommercials,
         Login,
-        Register,
-
+        Register
     ],
 
     templateUrl: './app.html',
@@ -46,10 +45,23 @@ export class App {
     @ViewChild('componentList') list!: ElementRef<HTMLSelectElement>;
     selectedComponent = 0;
     isLoggedIn = false;
+    user!: User;
     
     //lookup event type
     check(event: any) {
         this.selectedComponent = parseInt(event.target.value);
         console.log(`Component ${this.selectedComponent} has been selected.`);
+    }
+
+    onSubmit(user: User) {
+        if(user) {
+            this.isLoggedIn = !this.isLoggedIn;
+            this.user = user;
+            console.log('User has logged in.');
+        }
+    }
+
+    logout() {
+        this.isLoggedIn = !this.isLoggedIn;
     }
 }
