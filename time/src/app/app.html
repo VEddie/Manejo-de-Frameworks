@@ -1,5 +1,6 @@
 @if(!isLoggedIn) {
-    <register />
+    <login />
+    
 }
 
 @else {
@@ -58,9 +59,13 @@
         @case (10) {
             <tv-commercials />
         }
+
+        @case (11) {
+            <register />
+        }
     
         @default {
-            <login />
+            <p>Please select a component.</p>
         }
     }
 }

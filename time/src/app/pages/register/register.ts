@@ -8,7 +8,8 @@ import { FormsModule, NgForm } from '@angular/forms';
   styleUrl: './register.css'
 })
 export class Register {
-    submit(formData: NgForm) {
+    validate(formData: NgForm) {
+        console.log('Sending data to Firebase...');
         console.log(formData.value);
     }
 }

@@ -46,7 +46,7 @@ export class BatteryCharge {
             this.ctx.clearRect(115, 190, 80, 45);
             this.ctx.strokeText(`${Math.floor((this.chargeValue/136) * 100)}%`, 120, 220);
 
-            await this.sleep(10);
+            await this.sleep(50);
             this.chargeValue += 9;
         }
     }

@@ -28,15 +28,19 @@ import { Register } from './pages/register/register';
         Login,
         Register,
     ],
+
     templateUrl: './app.html',
     styleUrl: './app.css',
 })
 export class App {
-    protected title = 'Time Components';
     @ViewChild('componentList') list!: ElementRef<HTMLSelectElement>;
     selectedComponent = 0;
     isLoggedIn = false;
 
+    ngOnInit() {
+    }
+
+    
     //lookup event type
     check(event: any) {
         this.selectedComponent = parseInt(event.target.value);
