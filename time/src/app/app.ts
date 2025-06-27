@@ -11,6 +11,15 @@ import { TreeGrowth } from './components/tree-growth/tree-growth';
 import { TvCommercials } from './components/tv-commercials/tv-commercials';
 import { Login } from './pages/login/login';
 import { Register } from './pages/register/register';
+import { UserService } from './services/user-service';
+
+const testUser = {
+    firstName: 'Andreha',
+    lastName: 'Delgado',
+    email: 'andel@edu.com',
+    password: '424242',
+};
+
 
 @Component({
     selector: 'app-root',
@@ -27,6 +36,7 @@ import { Register } from './pages/register/register';
         TvCommercials,
         Login,
         Register,
+
     ],
 
     templateUrl: './app.html',
@@ -36,9 +46,14 @@ export class App {
     @ViewChild('componentList') list!: ElementRef<HTMLSelectElement>;
     selectedComponent = 0;
     isLoggedIn = false;
+ 
+    constructor(private userService: UserService) {}
 
     ngOnInit() {
+        this.userService.getAll().subscribe(res => console.log(res));
+        this.userService.register(testUser).subscribe(res => console.log('User has been successfully added.', res));
     }
+   
 
     
     //lookup event type

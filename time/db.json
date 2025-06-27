@@ -1,10 +1,25 @@
 {
-    "users": [
-        {
-            "firstName": "Eddie",
-            "lastName": "Vergel",
-            "email": "edi@edu.com",
-            "password": "123456"
-        }
-    ]
+  "users": [
+    {
+      "id": "a5b8",
+      "firstName": "Eddie",
+      "lastName": "Vergel",
+      "email": "edi@edu.com",
+      "password": "123456"
+    },
+    {
+      "id": "1998",
+      "firstName": "Andreha",
+      "lastName": "Delgado",
+      "email": "andel@edu.com",
+      "password": "424242"
+    },
+    {
+      "id": "fe20",
+      "firstName": "Aiskel",
+      "lastName": "Vergel",
+      "email": "aisk@edu.com",
+      "password": "161616"
+    }
+  ]
 }
