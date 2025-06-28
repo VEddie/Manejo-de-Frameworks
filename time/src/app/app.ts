@@ -1,50 +1,21 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { BatteryCharge } from './components/battery-charge/battery-charge';
-import { Bird } from './components/bird/bird';
-import { Candelabra } from './components/candelabra/candelabra';
-import { DayNightCycle } from './components/day-night-cycle/day-night-cycle';
-import { GasMeter } from './components/gas-meter/gas-meter';
-import { KitchenTimer } from './components/kitchen-timer/kitchen-timer';
-import { Microwave } from './components/microwave/microwave';
-import { PlanetRotation } from './components/planet-rotation/planet-rotation';
-import { TreeGrowth } from './components/tree-growth/tree-growth';
-import { TvCommercials } from './components/tv-commercials/tv-commercials';
 import { User } from './services/user-service';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
     selector: 'app-root',
-    imports: [
-        BatteryCharge,
-        Bird,
-        Candelabra,
-        DayNightCycle,
-        GasMeter,
-        KitchenTimer,
-        Microwave,
-        PlanetRotation,
-        TreeGrowth,
-        TvCommercials,
-        RouterOutlet
-    ],
+    imports: [RouterOutlet],
 
     templateUrl: './app.html',
     styleUrl: './app.css',
 })
 export class App {
     @ViewChild('componentList') list!: ElementRef<HTMLSelectElement>;
-    selectedComponent = 0;
     isLoggedIn = false;
     user!: User;
-    
-    //lookup event type
-    check(event: any) {
-        this.selectedComponent = parseInt(event.target.value);
-        console.log(`Component ${this.selectedComponent} has been selected.`);
-    }
 
     onSubmit(user: any) {
-        if(user) {
+        if (user) {
             this.isLoggedIn = !this.isLoggedIn;
             this.user = user;
             console.log('User has logged in.');

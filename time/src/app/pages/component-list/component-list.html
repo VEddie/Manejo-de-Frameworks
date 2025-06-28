@@ -1,9 +1,3 @@
-<router-outlet></router-outlet>
-
-<!-- 
-@if(!isLoggedIn) {
-<login (userEvent)="onSubmit($event)" />
-} @else {
 <nav class="navbar navbar-expand bg-body-secondary">
     <div class="container-fluid">
         <div id="navbarNav" class="collapse navbar-collapse justify-content-between">
@@ -26,9 +20,7 @@
             </ul>
             <ul class="navbar-nav align-items-center">
                 <li class="nav-item mx-4">
-                    <p class="text-danger-emphasis my-0">
-                        User: {{ user.firstName }} {{ user.lastName}}
-                    </p>
+                    <p class="text-danger-emphasis my-0">User: Edixon Vergel</p>
                 </li>
                 <li class="nav-item">
                     <button (click)="logout()" class="btn btn-outline-danger">Logout</button>
@@ -38,8 +30,7 @@
     </div>
 </nav>
 
-@switch(selectedComponent) { 
-@case (1) {
+@switch(selectedComponent) { @case (1) {
 <battery-charge />
 } @case (2) {
 <bird />
@@ -59,9 +50,6 @@
 <tree-growth [sec]="10" />
 } @case (10) {
 <tv-commercials />
-} @case (11) {
-<register />
 } @default {
 <p>Please select a component.</p>
-} } }
- -->
+} }
