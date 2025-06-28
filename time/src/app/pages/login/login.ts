@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { UserService } from '../../services/user-service';
-import { fetchUserData, sleep } from '../../utilities/functions';
+import { fetchUserData, setUserData, sleep } from '../../utilities/functions';
 import { Router, RouterModule } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
 
@@ -28,7 +28,7 @@ export class Login {
           
             if(user) {
                 this.toast.success(`Welcome ${user.firstName}.`);
-                // Wait 3 seconds and redirect.
+                setUserData(user);
                 await sleep(3000);
                 this.router.navigate(['/component-list']);
             } 
