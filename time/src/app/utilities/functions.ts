@@ -2,9 +2,6 @@ import { User } from '../services/user-service';
 
 export const sleep = (delay: number) => new Promise((resolve) => setTimeout(resolve, delay));
 
-export const fetchUserData = (data: User[], user: User) =>
-    data.find((u) => u.email === user.email && u.password === user.password);
-
 export const getTimer = (timer: number) => {
     let hours = Math.trunc(timer / 3600);
     let minutes = Math.trunc((timer - 3600 * hours) / 60);
@@ -13,3 +10,6 @@ export const getTimer = (timer: number) => {
 };
 
 export const getFormat = (digit: number) => (digit <= 9 ? `0${digit}` : `${digit}`);
+
+export const fetchUserData = (data: User[], user: User) =>
+    data.find((u) => u.email === user.email && u.password === user.password);

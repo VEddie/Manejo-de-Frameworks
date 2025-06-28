@@ -1,5 +1,6 @@
-import { Component, ElementRef, Inject, PLATFORM_ID, ViewChild } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { getTimer, sleep } from '../../utilities/functions';
+import { batteryColors } from "./../../utilities/constants";
 
 @Component({
     selector: 'battery-charge',
@@ -7,47 +8,63 @@ import { isPlatformBrowser } from '@angular/common';
     templateUrl: './battery-charge.html',
     styleUrl: './battery-charge.css',
 })
+
 export class BatteryCharge {
     @ViewChild('myCanvas', { static: false })
-    private canvasRef!: ElementRef<HTMLCanvasElement>;
-    private ctx!: CanvasRenderingContext2D;
-    public isBrowser: boolean;
-    chargeValue = 10;
+    canvasRef!: ElementRef<HTMLCanvasElement>;
+    ctx!: CanvasRenderingContext2D;
+    refreshInterval!: NodeJS.Timeout;
+    timeRemaining = 35;
+    maxTimer = this.timeRemaining;
+    chargeMeter = 0;
+    chargeStep = 0;
 
-    // Should fix the "Is not yet implemented" error but gets a TypeError instead
-    constructor(@Inject(PLATFORM_ID) platformId: Object) {
-        this.isBrowser = isPlatformBrowser(platformId);
-    }
-
-    ngAfterViewInit(): void {
+    ngAfterViewInit() {
         this.ctx = this.canvasRef.nativeElement.getContext('2d')!;
-        this.drawSample();
+        this.drawPhone();
     }
 
-    sleep(delay: number) {
-        return new Promise((resolve) => setTimeout(resolve, delay));
-    }
-
-    private async drawSample(): Promise<void> {
+    drawPhone() {
         this.ctx.lineWidth = 3;
         this.ctx.strokeStyle = 'white';
+        this.ctx.font = '16px Verdana';
         this.ctx.strokeRect(75, 240, 140, 59);
-
-        this.ctx.font = '20px Verdana';
-        this.ctx.strokeText('0%', 135, 220);
-
-        while (this.chargeValue <= 136) {
-            if (this.chargeValue < 70) this.ctx.fillStyle = '#E05C4C';
-            else if (this.chargeValue < 100) this.ctx.fillStyle = '#FADF63';
-            else this.ctx.fillStyle = '#57C75C';
-
-            this.ctx.fillRect(77, 241, this.chargeValue, 56);
-
-            this.ctx.clearRect(115, 190, 80, 45);
-            this.ctx.strokeText(`${Math.floor((this.chargeValue/136) * 100)}%`, 120, 220);
-
-            await this.sleep(50);
-            this.chargeValue += 9;
-        }
+        this.ctx.fillStyle = 'white';
+        this.ctx.lineWidth = 2;
+        this.ctx.fillText('Time until full charge', 60, 375);
+        this.ctx.strokeText('0%', 130, 220);
+        this.ctx.strokeText(`${Math.floor((this.chargeMeter))}%`, 130, 220);
+        this.ctx.fillText(getTimer(this.timeRemaining), 110, 415);
+        this.update();
     }
+
+    update() {
+        this.refreshInterval = setInterval(() => {   
+            if (this.chargeMeter < 20) this.ctx.fillStyle = batteryColors.red;
+
+            else if (this.chargeMeter < 50) this.ctx.fillStyle = batteryColors.yellow;
+
+            else this.ctx.fillStyle = batteryColors.green;
+
+            // Bar fills at 136
+            this.ctx.fillRect(77, 241, this.chargeStep, 56);    
+            this.ctx.clearRect(100, 190, 100, 40);
+            this.ctx.strokeText(`${Math.floor((this.chargeMeter))}%`, 130, 220);
+
+            this.ctx.fillStyle = 'white';
+            this.ctx.clearRect(100, 390, 100, 40);
+            this.ctx.fillText(getTimer(this.timeRemaining), 110, 415);
+ 
+            this.timeRemaining--;
+            this.chargeMeter += 100 / this.maxTimer;
+            this.chargeStep += 136 / this.maxTimer;
+
+            if(this.timeRemaining < 0) {
+                this.ctx.clearRect(50, 340, 300, 90);
+                clearInterval(this.refreshInterval);
+            }
+        }, 1000)
+    }
+
+
 }
