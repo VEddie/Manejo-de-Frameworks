@@ -7,15 +7,15 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
   styleUrl: './microwave.css'
 })
 export class Microwave {
-    // new FontFace('Digital', "url('/img/microwave/microwave_off.jpg')")
-
     @ViewChild('microwaveCanvas', { static: false }) canvasRef!: ElementRef<HTMLCanvasElement>;
     ctx!: CanvasRenderingContext2D;
+    timer = 10800;
+    refreshInterval!: NodeJS.Timeout; 
 
     ngOnInit() {
         let f = new FontFace('Digital', "url('fonts/digital-7.ttf')");
         f.load().then(() => {
-            this.ctx.font = "32px Digital";
+            this.ctx.font = "24px Digital";
             this.ctx.fillStyle = 'yellow'
         })
     }
@@ -30,15 +30,30 @@ export class Microwave {
         this.ctx.lineWidth = 3;
         this.ctx.strokeStyle = 'yellow';
         this.ctx.clearRect(646, 66, 90, 40)
-        this.ctx.fillText(this.getTimer(), 658, 98);
+        this.ctx.fillText(this.getTimer(), 655, 98);
+        this.timer--;
+        this.refresh();
+    }
+
+    refresh() {
+        this.refreshInterval = setInterval(() => {
+            this.ctx.clearRect(646, 66, 90, 40)
+            this.ctx.fillText(this.getTimer(), 655, 98);
+    
+            if(this.timer === 0) {
+                clearInterval(this.refreshInterval);
+                this.canvasRef.nativeElement.style.backgroundImage = "url('img/microwave/microwave_off.jpg')"
+            }
+
+            this.timer--;
+        }, 250);
     }
 
     getTimer() {
-        const timer = 599;
-        let minutes = Math.trunc(timer/60);
-        let seconds = timer - (minutes * 60);
-
-        return `${this.getFormat(minutes)}:${this.getFormat(seconds)}`;
+        let hours = Math.trunc(this.timer / 3600)
+        let minutes = Math.trunc((this.timer - (3600 * hours)) / 60);
+        let seconds = this.timer - (hours * 3600) - (minutes * 60);
+        return `${this.getFormat(hours)}:${this.getFormat(minutes)}:${this.getFormat(seconds)}`;
     }
 
     getFormat(digit: number) {

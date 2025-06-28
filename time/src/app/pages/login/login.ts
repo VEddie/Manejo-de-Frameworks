@@ -13,8 +13,6 @@ import { StorageService } from '../../services/storage-service';
     styleUrl: './login.css',
 })
 export class Login {
-    toastRef: any;
-
     constructor(
         private userService: UserService,
         private toast: HotToastService,

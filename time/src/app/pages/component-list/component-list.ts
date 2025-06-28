@@ -10,13 +10,7 @@ import { PlanetRotation } from '../../components/planet-rotation/planet-rotation
 import { TreeGrowth } from '../../components/tree-growth/tree-growth';
 import { TvCommercials } from '../../components/tv-commercials/tv-commercials';
 import { Router } from '@angular/router';
-import { HotToastService } from '@ngneat/hot-toast';
 import { StorageService } from '../../services/storage-service';
-
-interface LoggedUser {
-    firstName: string;
-    lastName: string;
-}
 
 @Component({
     selector: 'component-list',
@@ -37,7 +31,6 @@ interface LoggedUser {
 })
 export class ComponentList {
     constructor(
-        private toast: HotToastService,
         private storage: StorageService,
         private router: Router
     ) {}

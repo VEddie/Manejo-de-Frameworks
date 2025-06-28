@@ -20,6 +20,13 @@
       "lastName": "Vergel",
       "email": "aisk@edu.com",
       "password": "161616"
+    },
+    {
+      "id": "4443",
+      "firstName": "Amanda",
+      "lastName": "Ramirez",
+      "email": "amy@r.com",
+      "password": "565656"
     }
   ]
 }
