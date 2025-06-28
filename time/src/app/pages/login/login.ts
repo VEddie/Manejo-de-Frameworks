@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { UserService } from '../../services/user-service';
-import { fetchUserData, setUserData, sleep } from '../../utilities/functions';
 import { Router, RouterModule } from '@angular/router';
+import { fetchUserData, sleep } from '../../utilities/functions';
+import { UserService } from '../../services/user-service';
 import { HotToastService } from '@ngneat/hot-toast';
+import { StorageService } from '../../services/storage-service';
 
 @Component({
     selector: 'login',
@@ -17,10 +18,15 @@ export class Login {
     constructor(
         private userService: UserService,
         private toast: HotToastService,
+        private storage: StorageService,
         private router: Router
     ) {}
 
     @Output() userEvent = new EventEmitter();
+
+    ngOnInit() {
+        if(this.storage.getItem('user')) this.router.navigate(['/component-list'])
+    }
 
     onSubmit(formData: NgForm) {
         this.userService.getAll().subscribe(async (users) => {
@@ -28,7 +34,7 @@ export class Login {
           
             if(user) {
                 this.toast.success(`Welcome ${user.firstName}.`);
-                setUserData(user);
+                this.storage.setItem('user', `${user.firstName} ${user.lastName}`)
                 await sleep(3000);
                 this.router.navigate(['/component-list']);
             } 
