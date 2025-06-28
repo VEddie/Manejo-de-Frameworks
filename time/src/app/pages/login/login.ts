@@ -2,10 +2,11 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { UserService } from '../../services/user-service';
 import { fetchUserData } from '../../utilities/functions';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'login',
-  imports: [FormsModule],
+  imports: [FormsModule, RouterModule],
   templateUrl: './login.html',
   styleUrl: './login.css'
 })
@@ -17,7 +18,7 @@ export class Login {
         this.userService.getAll().subscribe(users => {
             let user = fetchUserData(users, formData.value)
             // Switch to a toaster
-            user ? this.userEvent.emit(user) : this.userEvent.emit(undefined);
+            console.log(user);
         })
     }
 }

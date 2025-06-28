@@ -9,17 +9,8 @@ import { Microwave } from './components/microwave/microwave';
 import { PlanetRotation } from './components/planet-rotation/planet-rotation';
 import { TreeGrowth } from './components/tree-growth/tree-growth';
 import { TvCommercials } from './components/tv-commercials/tv-commercials';
-import { Login } from './pages/login/login';
-import { Register } from './pages/register/register';
 import { User } from './services/user-service';
-
-const testUser = {
-    firstName: 'Andreha',
-    lastName: 'Delgado',
-    email: 'andel@edu.com',
-    password: '424242',
-};
-
+import { RouterOutlet } from '@angular/router';
 
 @Component({
     selector: 'app-root',
@@ -34,8 +25,7 @@ const testUser = {
         PlanetRotation,
         TreeGrowth,
         TvCommercials,
-        Login,
-        Register
+        RouterOutlet
     ],
 
     templateUrl: './app.html',
@@ -53,7 +43,7 @@ export class App {
         console.log(`Component ${this.selectedComponent} has been selected.`);
     }
 
-    onSubmit(user: User) {
+    onSubmit(user: any) {
         if(user) {
             this.isLoggedIn = !this.isLoggedIn;
             this.user = user;
