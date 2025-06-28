@@ -10,7 +10,7 @@ import { getTimer } from '../../utilities/functions';
 export class Microwave {
     @ViewChild('microwaveCanvas', { static: false }) canvasRef!: ElementRef<HTMLCanvasElement>;
     ctx!: CanvasRenderingContext2D;
-    timer = 3600;
+    timer = 90;
     refreshInterval!: NodeJS.Timeout; 
 
     ngOnInit() {
@@ -47,6 +47,6 @@ export class Microwave {
             }
 
             this.timer--;
-        }, 250);
+        }, 1000);
     }
 }

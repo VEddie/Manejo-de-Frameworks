@@ -3,5 +3,5 @@
 </div>
 
 <div class="container">
-    <button (click)="startClock()" class="btn btn-primary mt-2">Start</button>
+    <button (click)="startClock()" class="btn btn-primary mt-2" [disabled]="isTicking">Start</button>
 </div>

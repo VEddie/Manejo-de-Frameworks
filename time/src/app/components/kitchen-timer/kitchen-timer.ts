@@ -13,35 +13,41 @@ export class KitchenTimer {
     second: number = 60;
     isTicking: boolean = false;
     timerInterval!: NodeJS.Timeout;
+    timer = 100;
+    maxTimer = this.timer;
 
     ngAfterViewInit() {
         this.ctx = this.canvasRef.nativeElement.getContext('2d')!;
-        this.radius = (this.canvasRef.nativeElement.height) / 2
+        this.radius = this.canvasRef.nativeElement.height / 2;
         this.ctx.translate(this.radius, this.radius);
         this.radius = this.radius * 0.75;
         this.drawClock();
     }
 
-    startClock() {
-        if(!this.isTicking) {
-            this.timerInterval! = setInterval(() => {
-                this.drawClock();
-            }, 50)
+    ngOnDestroy() {
+        clearInterval(this.timerInterval);
+    }
 
-            this.isTicking = !this.isTicking;
-            console.log('Starting...')
-        }
+    startClock() {
+        this.isTicking = !this.isTicking;
+        console.log('Starting...');
+
+        this.timerInterval = setInterval(() => {
+            this.drawClock();
+
+            if (this.second < 0) {
+                clearInterval(this.timerInterval);
+                console.log('done');
+            }
+        }, 1000);
     }
 
     drawClock() {
-        if(this.second === -1) {
-            clearInterval(this.timerInterval!);
-            return;
-        }
-
         this.drawFace();
         this.drawTime();
-        this.second--;
+        this.second -= 60 / this.maxTimer;
+        this.timer--;
+        console.log(this.second);
     }
 
     drawFace() {
