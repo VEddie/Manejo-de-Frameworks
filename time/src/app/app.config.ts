@@ -14,7 +14,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withFetch()),
     provideHotToastConfig({
         duration: 3000,
-        dismissible: true,
+        visibleToasts: 2
     })
   ]
 };

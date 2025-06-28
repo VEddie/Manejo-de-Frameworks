@@ -31,7 +31,6 @@ export class Login {
                 // Wait 3 seconds and redirect.
                 await sleep(3000);
                 this.router.navigate(['/component-list']);
-
             } 
             
             else this.toast.error('Incorrect email or password.');

@@ -19,6 +19,10 @@ export class UserService {
         return this.http.get<User[]>(ROOT);
     }
 
+    getUser(email: string) {
+        return this.http.get<User[]>(ROOT + `?email=${email}`);
+    }
+
     register(user: User) {
         return this.http.post(ROOT, user);
     }

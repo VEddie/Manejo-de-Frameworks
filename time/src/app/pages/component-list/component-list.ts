@@ -32,7 +32,6 @@ export class ComponentList {
     constructor(private router: Router) {}
     selectedComponent = 0;
 
-    //lookup event type
     check(event: any) {
         this.selectedComponent = parseInt(event.target.value);
         console.log(`Component ${this.selectedComponent} has been selected.`);
