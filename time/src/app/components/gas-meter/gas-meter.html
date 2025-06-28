@@ -3,7 +3,7 @@
 </div>
 
 <div class="container">
-    <button (click)="start()" class="btn btn-primary mt-2">Start</button>
+    <button (click)="start()" class="btn btn-primary mt-2" [disabled]="isTicking">Start</button>
 </div>
 
 <img #gasMeter src="img/gas_meter/gas_meter.png" class="d-none">

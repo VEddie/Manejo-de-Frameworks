@@ -1,59 +1,70 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
+import { getTimer } from '../../utilities/functions';
 
 @Component({
-  selector: 'gas-meter',
-  imports: [],
-  templateUrl: './gas-meter.html',
-  styleUrl: './gas-meter.css'
+    selector: 'gas-meter',
+    imports: [],
+    templateUrl: './gas-meter.html',
+    styleUrl: './gas-meter.css',
 })
 export class GasMeter {
     @ViewChild('gasCanvas', { static: false }) canvasRef!: ElementRef<HTMLCanvasElement>;
     @ViewChild('gasMeter', { static: false }) gasMeter!: ElementRef<HTMLCanvasElement>;
+
     ctx!: CanvasRenderingContext2D;
     radius: number = 0;
-    second: number = 50;
+    angle: number = 50;
     isTicking: boolean = false;
     timerInterval!: NodeJS.Timeout;
+    timer = 25;
+    maxTimer = this.timer;
 
-    // Start at 50, end at 10
+    // Start at 50, end at 70
 
     ngAfterViewInit() {
         this.ctx = this.canvasRef.nativeElement.getContext('2d')!;
-        this.radius = (this.canvasRef.nativeElement.height -20)
+        this.radius = this.canvasRef.nativeElement.height - 20;
         this.ctx.translate(this.radius + 33, this.radius - 20);
         this.radius = this.radius * 0.75;
         this.ctx.strokeStyle = 'red';
-        this.drawClock();
+        this.ctx.fillStyle = 'red';
+        this.ctx.font = '20px Verdana';
+
+        // Timer
+        this.ctx.clearRect(-10, -255, 200, 50);
+        this.ctx.fillText('Tank filled in:', -150, -220);
+        this.ctx.fillText(getTimer(this.timer), -5, -220);
+
+        this.drawMeter();
+    }
+
+    ngOnDestroy() {
+        clearInterval(this.timerInterval);
     }
 
     start() {
-        if(!this.isTicking) {
-            this.timerInterval! = setInterval(() => {
-                this.drawClock();
-            }, 50)
+        // Disable button
+        this.isTicking = !this.isTicking;
 
-            this.isTicking = !this.isTicking;
-            console.log('Starting...')
-        }
+        this.timerInterval = setInterval(() => {
+            this.drawMeter();
+
+            if (this.timer < 0) {
+                clearInterval(this.timerInterval);
+                return;
+            }
+        }, 1000);
     }
 
-    drawClock() {
-        if(this.second > 70) {
-            clearInterval(this.timerInterval!);
-            return;
-        }
+    drawMeter() {
+        // Redraw hand
         this.ctx.clearRect(-200, -200, 400, 500);
-
-        this.drawTime();
-        this.second++;
+        let nextAngle = (this.angle * Math.PI) / 30;
+        this.updateMeter(nextAngle, this.radius * 0.9, this.radius * 0.04);
+        
     }
 
-    drawTime() {
-        let nextSecond = (this.second * Math.PI) / 30;
-        this.drawHand(nextSecond, this.radius * 0.90, this.radius * 0.04);
-    }
-
-    drawHand(position: number, length: number, width: number) {
+    updateMeter(position: number, length: number, width: number) {
         this.ctx.beginPath();
         this.ctx.lineWidth = width;
         this.ctx.moveTo(0, 0);
@@ -61,5 +72,11 @@ export class GasMeter {
         this.ctx.lineTo(0, -length);
         this.ctx.stroke();
         this.ctx.rotate(-position);
+
+        this.ctx.clearRect(-10, -255, 200, 50);
+        this.ctx.fillText(getTimer(this.timer), -5, -220);
+
+        this.angle += 20 / this.maxTimer;
+        this.timer--;
     }
 }
