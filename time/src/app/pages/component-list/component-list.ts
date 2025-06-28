@@ -9,6 +9,7 @@ import { Microwave } from '../../components/microwave/microwave';
 import { PlanetRotation } from '../../components/planet-rotation/planet-rotation';
 import { TreeGrowth } from '../../components/tree-growth/tree-growth';
 import { TvCommercials } from '../../components/tv-commercials/tv-commercials';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-component-list',
@@ -28,8 +29,7 @@ import { TvCommercials } from '../../components/tv-commercials/tv-commercials';
     styleUrl: './component-list.css',
 })
 export class ComponentList {
-    
-
+    constructor(private router: Router) {}
     selectedComponent = 0;
 
     //lookup event type
@@ -38,6 +38,6 @@ export class ComponentList {
         console.log(`Component ${this.selectedComponent} has been selected.`);
     }
     logout() {
-        console.log('logout');
+        this.router.navigate(['/']);
     }
 }

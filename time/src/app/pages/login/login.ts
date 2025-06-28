@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { UserService } from '../../services/user-service';
-import { fetchUserData } from '../../utilities/functions';
+import { fetchUserData, sleep } from '../../utilities/functions';
 import { Router, RouterModule } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
 
@@ -23,16 +23,18 @@ export class Login {
     @Output() userEvent = new EventEmitter();
 
     onSubmit(formData: NgForm) {
-        this.userService.getAll().subscribe((users) => {
+        this.userService.getAll().subscribe(async (users) => {
             let user = fetchUserData(users, formData.value);
-            // Switch to a toaster
-            if (user) {
-                this.toast.success('Welcome');
-                // const toasty = new Toasty();
-                // toasty.success('You did the thing');
-            }
-            //this.router.navigate(['/component-list']);
-            else this.toast.error('Invalid user.');
+          
+            if(user) {
+                this.toast.success(`Welcome ${user.firstName}.`);
+                // Wait 3 seconds and redirect.
+                await sleep(3000);
+                this.router.navigate(['/component-list']);
+
+            } 
+            
+            else this.toast.error('Incorrect email or password.');
         });
     }
 }
