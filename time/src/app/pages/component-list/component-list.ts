@@ -43,10 +43,13 @@ export class ComponentList {
     ) {}
 
     selectedComponent = 0;
-    user: string = '';
+    authenticatedUser: string = '';
 
     ngOnInit() {
-        if (!this.storage.getItem('user')) this.router.navigate(['']);
+        const authenticatedUser = this.storage.getItem('user');
+        if (!authenticatedUser) this.router.navigate(['']);
+
+        else this.authenticatedUser = authenticatedUser;
     }
 
     check(event: any) {

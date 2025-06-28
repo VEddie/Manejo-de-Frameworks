@@ -25,6 +25,7 @@ export class Login {
     @Output() userEvent = new EventEmitter();
 
     ngOnInit() {
+        // Redirect if there's localStorage data.
         if(this.storage.getItem('user')) this.router.navigate(['/component-list'])
     }
 
