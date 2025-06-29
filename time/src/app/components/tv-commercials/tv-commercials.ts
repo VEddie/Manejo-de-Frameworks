@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 
 @Component({
     selector: 'tv-commercials',
@@ -8,31 +8,18 @@ import { Component } from '@angular/core';
     styleUrl: './tv-commercials.css',
 })
 export class TvCommercials {
-    timeLeft = 5;
-    interval!: NodeJS.Timeout;
-
-    currentSrc: number = 0;
-    videoInterval!: NodeJS.Timeout;
     videoList = [
-        '/videos/video1.jpg',
-        '/videos/video2.jpg',
-        '/videos/video3.jpg',
+        '/videos/kfc.mp4',
+        '/videos/pringles.mp4',
+        '/videos/toyota.mp4',
+        '/videos/empire.mp4',
+        '/videos/domino.mp4',
     ]
-
+    videoInterval!: NodeJS.Timeout;
+    @ViewChild('videoPlayer', { static: true }) videoPlayer!: ElementRef<HTMLVideoElement>;
+    
     startTimer() {
-        this.interval = setInterval(() => {
-            if (this.timeLeft > 0) this.timeLeft--;
-            else this.pauseTimer();
-        }, 1000);
-
-        this.videoInterval = setInterval(() => {
-            this.currentSrc = Math.floor(Math.random() * 3);
-        }, 2000)
-    }
-
-    pauseTimer() {
-        clearInterval(this.interval);
-        clearInterval(this.videoInterval);
+        this.videoPlayer.nativeElement.play();
     }
 }
 
