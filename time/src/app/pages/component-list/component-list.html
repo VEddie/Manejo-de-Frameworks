@@ -31,25 +31,25 @@
 </nav>
 
 @switch(selectedComponent) { @case (1) {
-<battery-charge />
+<battery-charge [minutes]=2 [seconds]=5/>
 } @case (2) {
-<bird />
+<bird [seconds]=20/>
 } @case (3) {
-<candelabra />
+<candelabra [seconds]=14/>
 } @case (4) {
-<day-night-cycle />
+<day-night-cycle [seconds]=30/>
 } @case (5) {
-<gas-meter />
+<gas-meter [minutes]=1 [seconds]=10/>
 } @case (6) {
-<kitchen-timer />
+<kitchen-timer [seconds]=30/>
 } @case (7) {
-<microwave />
+<microwave [hours]=1 [minutes]=30 [seconds]=10/>
 } @case (8) {
-<planet-rotation />
+<planet-rotation [seconds]=15/>
 } @case (9) {
-<tree-growth [sec]="10" />
+<tree-growth [minutes]=2 [seconds]=5 />
 } @case (10) {
-<tv-commercials />
+<tv-commercials [seconds]=35/>
 } @default {
 <p>Please select a component.</p>
 } }

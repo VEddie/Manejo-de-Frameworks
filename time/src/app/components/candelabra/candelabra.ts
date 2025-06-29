@@ -1,4 +1,5 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { convertToSeconds } from '../../utilities/functions';
 
 interface Coordinate {
     x: number;
@@ -12,12 +13,16 @@ interface Coordinate {
     styleUrl: './candelabra.css',
 })
 export class Candelabra {
-    @ViewChild('candelabraCanvas', { static: false }) canvasRef!: ElementRef<HTMLCanvasElement>;
-    @ViewChild('fire', { static: false }) fire!: ElementRef<HTMLImageElement>;
     ctx!: CanvasRenderingContext2D;
     lightInterval!: NodeJS.Timeout;
-    timer = 30;
-    maxTimer = this.timer;
+    @ViewChild('candelabraCanvas', { static: false }) canvasRef!: ElementRef<HTMLCanvasElement>;
+    @ViewChild('fire', { static: false }) fire!: ElementRef<HTMLImageElement>;
+    @Input({ required: false }) hours: number = 0;
+    @Input({ required: false }) minutes: number = 0;
+    @Input({ required: true }) seconds: number = 0;
+    timer!: number;
+    maxTimer!: number;
+    isBeingLit = false;
 
     coordinates: Coordinate[] = [
         { x: 77, y: 139 },
@@ -31,6 +36,11 @@ export class Candelabra {
 
     i = 0;
 
+    ngOnInit() {
+        this.timer = convertToSeconds(this.hours, this.minutes, this.seconds);
+        this.maxTimer = this.timer;
+    }
+
     ngAfterViewInit() {
         this.ctx = this.canvasRef.nativeElement.getContext('2d')!;
     }
@@ -41,6 +51,8 @@ export class Candelabra {
 
     start() {
         let lightDelay = (this.maxTimer / 7) * 1000;
+        this.isBeingLit = !this.isBeingLit;
+
         this.lightInterval = setInterval(() => {
             this.ctx.drawImage(
                 this.fire!.nativeElement,

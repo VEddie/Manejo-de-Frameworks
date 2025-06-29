@@ -13,3 +13,7 @@ export const getFormat = (digit: number) => (digit <= 9 ? `0${digit}` : `${digit
 
 export const fetchUserData = (data: User[], user: User) =>
     data.find((u) => u.email === user.email && u.password === user.password);
+
+export const convertToSeconds = (hours: number = 0, minutes: number = 0, seconds: number = 0) => {
+    return (hours * 3600) + (minutes * 60) + seconds;
+}

@@ -1,5 +1,5 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import { getTimer } from '../../utilities/functions';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { convertToSeconds, getTimer } from '../../utilities/functions';
 
 @Component({
   selector: 'microwave',
@@ -11,15 +11,19 @@ import { getTimer } from '../../utilities/functions';
 export class Microwave {
     @ViewChild('microwaveCanvas', { static: false }) canvasRef!: ElementRef<HTMLCanvasElement>;
     ctx!: CanvasRenderingContext2D;
-    timer = 90;
-    refreshInterval!: NodeJS.Timeout; 
+    timer!: number;
+    refreshInterval!: NodeJS.Timeout;
+    @Input({ required: false}) hours: number = 0;
+    @Input({ required: false}) minutes: number = 0;
+    @Input({ required: true}) seconds: number = 0; 
 
     ngOnInit() {
         let f = new FontFace('Digital', "url('fonts/digital-7.ttf')");
         f.load().then(() => {
             this.ctx.font = "24px Digital";
             this.ctx.fillStyle = 'yellow'
-        })
+        });
+        this.timer = convertToSeconds(this.hours, this.minutes, this.seconds);
     }
 
     ngAfterViewInit() {

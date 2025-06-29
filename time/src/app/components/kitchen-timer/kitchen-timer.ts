@@ -1,4 +1,5 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { convertToSeconds } from '../../utilities/functions';
 
 @Component({
     selector: 'kitchen-timer',
@@ -13,8 +14,16 @@ export class KitchenTimer {
     second: number = 60;
     isTicking: boolean = false;
     timerInterval!: NodeJS.Timeout;
-    timer = 100;
-    maxTimer = this.timer;
+    @Input({ required: false }) hours: number = 0;
+    @Input({ required: false }) minutes: number = 0;
+    @Input({ required: true }) seconds: number = 0;
+    timer!: number;
+    maxTimer!: number;
+
+    ngOnInit() {
+        this.timer = convertToSeconds(this.hours, this.minutes, this.seconds);
+        this.maxTimer = this.timer;
+    }
 
     ngAfterViewInit() {
         this.ctx = this.canvasRef.nativeElement.getContext('2d')!;

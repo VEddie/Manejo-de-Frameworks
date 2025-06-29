@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { convertToSeconds } from '../../utilities/functions';
 
 @Component({
   selector: 'tree-growth',
@@ -10,10 +11,18 @@ export class TreeGrowth {
     tree_src: string = 'img/tree-growth/dragonfruit';
     growthCycle: number = 0;
     growthInterval!: NodeJS.Timeout;
-    @Input({ required: true}) sec: number = 0;
+    @Input({ required: false}) hours: number = 0;
+    @Input({ required: false}) minutes: number = 0;
+    @Input({ required: true}) seconds: number = 0;
+
+    timer!: number;
+
+    ngOnInit() {
+        this.timer = convertToSeconds(this.hours, this.minutes, this.seconds);
+    }
 
     growth() {
-        console.log(`Timer is: ${this.sec} seconds.`)
+        console.log(`Timer is: ${this.timer} seconds.`)
         this.growthInterval! = setInterval(() => {
             this.growthCycle < 6 ? this.growthCycle++ : this.stop()
         }, this.getCycleTime())
@@ -25,6 +34,6 @@ export class TreeGrowth {
     }
 
     getCycleTime() { 
-        return parseFloat(((this.sec * 1000)/6).toFixed(3));
+        return parseFloat(((this.timer * 1000)/6).toFixed(3));
     }
 }

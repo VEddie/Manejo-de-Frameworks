@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import { getTimer } from '../../utilities/functions';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { convertToSeconds, getTimer } from '../../utilities/functions';
 
 @Component({
     selector: 'tv-commercials',
@@ -19,9 +19,21 @@ export class TvCommercials {
     timerInterval!: NodeJS.Timeout;
     videoInterval!: NodeJS.Timeout;
     isPlaying = false;
-    timer = 30;
+    @Input({ required: false }) hours: number = 0;
+    @Input({ required: false }) minutes: number = 0;
+    @Input({ required: true }) seconds: number = 0;
+    timer!: number;
 
     @ViewChild('videoPlayer', { static: false }) videoPlayer!: ElementRef<HTMLVideoElement>;
+
+    ngOnInit() {
+        this.timer = convertToSeconds(this.hours, this.minutes, this.seconds);
+    }
+
+    ngOnDestroy() {
+        clearInterval(this.timerInterval);
+        clearInterval(this.videoInterval);
+    }
 
     start() {
         this.isPlaying = !this.isPlaying;
@@ -29,15 +41,14 @@ export class TvCommercials {
         this.timerInterval = setInterval(() => {
             this.timer--;
 
-            if(this.timer === 0) {
+            if (this.timer === 0) {
                 clearInterval(this.timerInterval);
                 clearInterval(this.videoInterval);
                 this.videoPlayer.nativeElement.src = 'videos/intro.mp4';
                 this.videoPlayer.nativeElement.play();
                 this.videoPlayer.nativeElement.loop = true;
-
             }
-        }, 1000)
+        }, 1000);
 
         // Component gets delayed, needs a fix.
         this.videoInterval = setInterval(() => {
@@ -45,12 +56,7 @@ export class TvCommercials {
             this.videoPlayer.nativeElement.src = this.videoList[i];
             this.videoPlayer.nativeElement.play();
             console.log('new ad');
-        }, 10000)
-    }
-
-    ngOnDestroy() {
-        clearInterval(this.timerInterval);
-        clearInterval(this.videoInterval);
+        }, 10000);
     }
 
     getTimeLeft() {
