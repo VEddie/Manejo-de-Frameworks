@@ -1,24 +1,26 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 
 interface Coordinate {
-    x: number,
+    x: number;
     y: number;
 }
 
 @Component({
-  selector: 'candelabra',
-  imports: [],
-  templateUrl: './candelabra.html',
-  styleUrl: './candelabra.css'
+    selector: 'candelabra',
+    imports: [],
+    templateUrl: './candelabra.html',
+    styleUrl: './candelabra.css',
 })
 export class Candelabra {
     @ViewChild('candelabraCanvas', { static: false }) canvasRef!: ElementRef<HTMLCanvasElement>;
     @ViewChild('fire', { static: false }) fire!: ElementRef<HTMLImageElement>;
     ctx!: CanvasRenderingContext2D;
     lightInterval!: NodeJS.Timeout;
+    timer = 30;
+    maxTimer = this.timer;
 
     coordinates: Coordinate[] = [
-        { x: 77,  y: 139 },
+        { x: 77, y: 139 },
         { x: 133, y: 122 },
         { x: 188, y: 100 },
         { x: 238, y: 44 },
@@ -31,17 +33,26 @@ export class Candelabra {
 
     ngAfterViewInit() {
         this.ctx = this.canvasRef.nativeElement.getContext('2d')!;
-        
+    }
+
+    ngOnDestroy() {
+        clearInterval(this.lightInterval);
     }
 
     start() {
-        console.log('light')
-        if(this.i > 6 ) return;
-        
-        this.ctx.drawImage(this.fire!.nativeElement, this.coordinates[this.i].x, this.coordinates[this.i].y, 32, 48);
-        this.i++;
+        let lightDelay = (this.maxTimer / 7) * 1000;
+        this.lightInterval = setInterval(() => {
+            this.ctx.drawImage(
+                this.fire!.nativeElement,
+                this.coordinates[this.i].x,
+                this.coordinates[this.i].y,
+                32,
+                48
+            );
+            this.i++;
+            if (this.i > 6) clearInterval(this.lightInterval);
+        }, lightDelay);
     }
-
 }
 
 /*
