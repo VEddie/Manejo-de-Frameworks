@@ -2,26 +2,25 @@
     border: 1px red solid;
     height: 600px;
     width: 600px;
-}
-
-.tv {
-    z-index: 20;
+    margin: 0 auto;
+    position: relative;
     
 }
 
-.ad-container {
-    width: 345px;
-    height: 280px;
+.ad {
     position: absolute;
-    left: 105px;
-    bottom: 465px;
-    /* border: 1px solid blue; */
-    border-radius: 75px;
+    width: calc(100% - 250px);
+    height: 300px;
+    border-radius: 25px;
+    object-fit: fill;
 }
 
-.ad {
-    width: 345px;
-    height: 280px;
-    border-radius: 75px;
-    object-fit: fill;
+.tv {
+    bottom: 0;
+    left: 0;
+}
+
+.commercial {
+    right: 150px;
+    top: 145px;
 }

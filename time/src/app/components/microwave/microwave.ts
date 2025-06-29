@@ -7,6 +7,7 @@ import { getTimer } from '../../utilities/functions';
   templateUrl: './microwave.html',
   styleUrl: './microwave.css'
 })
+
 export class Microwave {
     @ViewChild('microwaveCanvas', { static: false }) canvasRef!: ElementRef<HTMLCanvasElement>;
     ctx!: CanvasRenderingContext2D;

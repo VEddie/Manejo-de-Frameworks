@@ -1,14 +1,11 @@
-<div class="tv-container">
-    <img src="img/tv/retro-tv.png" class="img-fluid">
-    <div class="ad-container">
-        @if(timeLeft > 0) {
-            <img src="{{ videoList[currentSrc] }}" class="img-fluid ad">
-        }@else {
-            <img src="/videos/video4.jpg" class="img-fluid ad">
-        }
-    </div>
+<div class=" tv-container">
+    <img src="img/tv/retro-tv.png" class="img-fluid tv" />
+    <video src="/videos/pringles.mp4" class="commercial ad " autoplay></video>
 </div>
 
-<button (click)='startTimer()' class="btn btn-primary">Start Timer</button>
+<div class="d-flex justify-content-center">
+    <button (click)="startTimer()" class="btn btn-primary">Start</button>
+</div>
 
-<p>{{timeLeft}} Seconds Left....</p> 
+<p>{{timeLeft}} Seconds Left....</p>
+

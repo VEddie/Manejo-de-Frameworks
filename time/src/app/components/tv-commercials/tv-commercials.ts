@@ -8,11 +8,11 @@ import { Component } from '@angular/core';
     styleUrl: './tv-commercials.css',
 })
 export class TvCommercials {
-    timeLeft: number = 5;
-    interval: any;
+    timeLeft = 5;
+    interval!: NodeJS.Timeout;
 
     currentSrc: number = 0;
-    videoInterval: any;
+    videoInterval!: NodeJS.Timeout;
     videoList = [
         '/videos/video1.jpg',
         '/videos/video2.jpg',
