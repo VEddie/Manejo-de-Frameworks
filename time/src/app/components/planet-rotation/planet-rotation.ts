@@ -30,6 +30,8 @@ export class PlanetRotation {
     ]
 
     counter = 0;
+    rotationInterval!: NodeJS.Timeout;
+    timer = 5;
 
     ngAfterViewInit() {
         this.ctx = this.canvasRef.nativeElement.getContext('2d')!;
@@ -41,11 +43,26 @@ export class PlanetRotation {
         this.draw();
     }
 
+    ngOnDestroy() {
+        clearInterval(this.rotationInterval)
+    }
+
     start() {
-        this.counter++;
-        if(this.counter === 8) this.counter = 0;
-        console.log('moving');
-        this.draw();        
+        let rotationDelay = (this.timer / 7) * 1000;
+
+        this.rotationInterval = setInterval(() => {
+            this.counter++;
+            
+            if(this.counter === 8) {
+                this.counter = 0;
+                this.draw();
+                clearInterval(this.rotationInterval)
+                return;
+            }
+
+            this.draw();
+        }, rotationDelay)
+              
     }
     
     draw() {
@@ -57,42 +74,3 @@ export class PlanetRotation {
     }
 
 }
-
-
-// Center
-        //this.ctx.drawImage(this.planet.nativeElement, 235, 235);
-
-        // radius A: 210
-        // radius B: 160
-
-        // // Horizontal
-        // this.ctx.drawImage(this.planet!.nativeElement, 235 + 210, 235);
-        // this.ctx.drawImage(this.planet!.nativeElement, 235 - 210, 235);
-
-        // // Vertical
-        // this.ctx.drawImage(this.planet!.nativeElement, 235, 235 + 160);
-        // this.ctx.drawImage(this.planet!.nativeElement, 235, 235 - 160);
-
-        // // Upper corners
-        // this.ctx.drawImage(this.planet!.nativeElement, 235 + (235 * 0.6), 235 - (235 * 0.5));
-        // this.ctx.drawImage(this.planet!.nativeElement, 235 - (235 * 0.6), 235 - (235 * 0.5));
-
-        // // Lower corners
-        // this.ctx.drawImage(this.planet!.nativeElement, 235 + (235 * 0.6), 235 + (235 * 0.5));
-        // this.ctx.drawImage(this.planet!.nativeElement, 235 - (235 * 0.6), 235 + (235 * 0.5));
-
-        // Step by step
-
-        // this.ctx.drawImage(this.planet!.nativeElement, 235 + (235 * 0.894), 235);
-        // this.ctx.drawImage(this.planet!.nativeElement, 235 + (235 * 0.6), 235 - (235 * 0.5));
-        // this.ctx.drawImage(this.planet!.nativeElement, 235, 235 - (235 * 0.68));
-        // this.ctx.drawImage(this.planet!.nativeElement, 235 - (235 * 0.6), 235 - (235 * 0.5));
-        // this.ctx.drawImage(this.planet!.nativeElement, 235 - (235 * 0.894), 235);
-        // this.ctx.drawImage(this.planet!.nativeElement, 235 - (235 * 0.6), 235 + (235 * 0.5));
-        // this.ctx.drawImage(this.planet!.nativeElement, 235, 235 + (235 * 0.68));
-        // this.ctx.drawImage(this.planet!.nativeElement, 235 + (235 * 0.6), 235 + (235 * 0.5));
-
-        // Step by step
-        // this.coordinates.forEach(coord => {
-        //     this.ctx.drawImage(this.planet!.nativeElement, coord.x, coord.y);
-        // })
