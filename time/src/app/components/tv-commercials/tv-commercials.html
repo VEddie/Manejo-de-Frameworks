@@ -1,8 +1,12 @@
 <div class=" tv-container">
-    <img src="img/tv/retro-tv.png" class="img-fluid tv" />
-    <video #videoPlayer src="/videos/intro.mp4" class="commercial ad"></video>
+    <img src="img/tv/retro-tv.png" class="img-fluid tv"/>
+    <video #videoPlayer src="" class="commercial ad"></video>
 </div>
 
 <div class="d-flex justify-content-center">
-    <button (click)="startTimer()" class="btn btn-primary">Start</button>
+    <button (click)="start()" class="btn btn-primary" [disabled]="isPlaying">Start</button>
+</div>
+
+<div class="d-flex justify-content-center">
+    <p>Your programming will begin in: {{ getTimeLeft() }} </p>
 </div>

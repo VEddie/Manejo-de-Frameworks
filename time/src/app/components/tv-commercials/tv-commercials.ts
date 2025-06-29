@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, ViewChild } from '@angular/core';
+import { getTimer } from '../../utilities/functions';
 
 @Component({
     selector: 'tv-commercials',
@@ -14,12 +15,46 @@ export class TvCommercials {
         '/videos/toyota.mp4',
         '/videos/empire.mp4',
         '/videos/domino.mp4',
-    ]
+    ];
+    timerInterval!: NodeJS.Timeout;
     videoInterval!: NodeJS.Timeout;
-    @ViewChild('videoPlayer', { static: true }) videoPlayer!: ElementRef<HTMLVideoElement>;
-    
-    startTimer() {
-        this.videoPlayer.nativeElement.play();
+    isPlaying = false;
+    timer = 30;
+
+    @ViewChild('videoPlayer', { static: false }) videoPlayer!: ElementRef<HTMLVideoElement>;
+
+    start() {
+        this.isPlaying = !this.isPlaying;
+
+        this.timerInterval = setInterval(() => {
+            this.timer--;
+
+            if(this.timer === 0) {
+                clearInterval(this.timerInterval);
+                clearInterval(this.videoInterval);
+                this.videoPlayer.nativeElement.src = 'videos/intro.mp4';
+                this.videoPlayer.nativeElement.play();
+                this.videoPlayer.nativeElement.loop = true;
+
+            }
+        }, 1000)
+
+        // Component gets delayed, needs a fix.
+        this.videoInterval = setInterval(() => {
+            let i = Math.floor(Math.random() * this.videoList.length);
+            this.videoPlayer.nativeElement.src = this.videoList[i];
+            this.videoPlayer.nativeElement.play();
+            console.log('new ad');
+        }, 10000)
+    }
+
+    ngOnDestroy() {
+        clearInterval(this.timerInterval);
+        clearInterval(this.videoInterval);
+    }
+
+    getTimeLeft() {
+        return getTimer(this.timer);
     }
 }
 

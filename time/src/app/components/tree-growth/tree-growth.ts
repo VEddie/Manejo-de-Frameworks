@@ -7,9 +7,9 @@ import { Component, Input } from '@angular/core';
   styleUrl: './tree-growth.css'
 })
 export class TreeGrowth {
-    protected tree_src: string = 'img/tree-growth/dragonfruit';
-    protected growthCycle: number = 0;
-    private growthInterval!: NodeJS.Timeout;
+    tree_src: string = 'img/tree-growth/dragonfruit';
+    growthCycle: number = 0;
+    growthInterval!: NodeJS.Timeout;
     @Input({ required: true}) sec: number = 0;
 
     growth() {
