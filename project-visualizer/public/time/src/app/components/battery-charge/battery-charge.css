@@ -1,0 +1,13 @@
+.battery-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.battery {
+    border: 1px solid black;
+    background-image: url('/img/battery/phone-screen.jpg');
+    background-size: contain;
+    border-radius: 18px;
+    
+}

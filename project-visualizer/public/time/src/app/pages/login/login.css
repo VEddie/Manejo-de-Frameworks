@@ -1,0 +1,15 @@
+.container {
+    height: 100vh;
+}
+
+.error-box {
+    margin-top: 2px;
+    height: 50px;
+}
+
+form { 
+    padding: 25px;
+    border: 2px solid dodgerblue;
+    border-radius: 12px;
+    width: 400px;
+}

@@ -1,0 +1,9 @@
+.microwave {
+    border: 4px solid black;
+    background-image: url('/img/microwave/microwave_off.jpg');
+}
+
+@font-face {
+    font-family: 'Digital';
+    src: url('/fonts/digital-7.ttf');
+}

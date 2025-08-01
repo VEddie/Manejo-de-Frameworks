@@ -1,0 +1,9 @@
+.container {
+    display: flex;
+    justify-content: center;
+}
+
+canvas {
+    margin-top: 10%;
+    border: 1px red solid;
+}

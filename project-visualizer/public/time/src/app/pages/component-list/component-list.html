@@ -1,0 +1,58 @@
+<nav class="navbar navbar-expand bg-body-secondary">
+    <div class="container-fluid">
+        <div id="navbarNav" class="collapse navbar-collapse justify-content-between">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <select #componentList (change)="check($event)" class="form-select">
+                        <option value="0">Component List</option>
+                        <option value="1">Battery Charge</option>
+                        <option value="2">Bird</option>
+                        <option value="3">Candelabra</option>
+                        <option value="4">Day & Night Cycle</option>
+                        <option value="5">Gas Meter</option>
+                        <option value="6">Kitchen Timer</option>
+                        <option value="7">Microwave</option>
+                        <option value="8">Planet Rotation</option>
+                        <option value="9">Tree Growth</option>
+                        <option value="10">TV Commercials</option>
+                    </select>
+                </li>
+            </ul>
+            <ul class="navbar-nav align-items-center">
+                <li class="nav-item mx-4">
+                    <p class="text-danger-emphasis my-0">User: {{ authenticatedUser }}</p>
+                </li>
+                <li class="nav-item">
+                    <button (click)="logout()" class="btn btn-outline-danger">Logout</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+@switch(selectedComponent) { @case (1) {
+<battery-charge [minutes]=2 [seconds]=5/>
+} @case (2) {
+<bird [seconds]=20/>
+} @case (3) {
+<candelabra [seconds]=14/>
+} @case (4) {
+<day-night-cycle [seconds]=30/>
+} @case (5) {
+<gas-meter [minutes]=1 [seconds]=10/>
+} @case (6) {
+<kitchen-timer [seconds]=30/>
+} @case (7) {
+<microwave [hours]=1 [minutes]=30 [seconds]=10/>
+} @case (8) {
+<planet-rotation [seconds]=15/>
+} @case (9) {
+<tree-growth [minutes]=2 [seconds]=5 />
+} @case (10) {
+<tv-commercials [seconds]=35/>
+} @default {
+<p>Please select a component.</p>
+} }
+
+
+<!-- {{ currentUser.firstName }} {{ currentUser.lastName }} -->

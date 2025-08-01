@@ -1,0 +1,13 @@
+.container {
+    width: 450px;
+    height: 650px;
+    display: flex;
+    justify-content: center;
+    border: 1px solid black;
+    margin-top: 10%;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+}
