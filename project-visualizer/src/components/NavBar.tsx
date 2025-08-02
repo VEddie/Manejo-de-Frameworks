@@ -15,7 +15,7 @@ const NavBar = ({ folders, onSetFolderContents, onSetCurrentFolder }: Props) => 
     };
 
     return (
-        <nav className='navbar navbar-expand-lg bg-body-tertiary'>
+        <nav className='navbar navbar-expand-md bg-body-tertiary'>
             <div className='container-fluid'>
                 <div className='collapse navbar-collapse' id='navbarNavDropdown'>
                     <ul className='navbar-nav'>

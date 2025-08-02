@@ -1,3 +1,3 @@
-const ROOT = 'http://localhost:5000/folders/';
+const FOLDER_ROOT = 'http://localhost:2000/folders/';
 
-export default ROOT;
+export default FOLDER_ROOT;

@@ -2,15 +2,23 @@ import { useEffect, useState } from 'react';
 import { Container, Grid, GridItem, List, Text } from '@chakra-ui/react';
 import axios from 'axios';
 import NavBar from './components/NavBar';
-import ROOT from './constants/constants';
+import FOLDER_ROOT from './constants/constants';
+//import { FILE_ROOT } from './constants/constants';
 
 function App() {
     const [folders, setFolders] = useState<string[]>([]);
     const [currentFolder, setCurrentFolder] = useState('');
     const [folderContents, setFolderContents] = useState<string[]>([]);
+    const [selectedFile, setSelectedFile] = useState('');
+    const [fileData, setFileData] = useState('');
+
+    const fetchFileContent = (path: string) => {
+        axios.get(`http://localhost:2000/readContent/${encodeURIComponent(path)}`)
+            .then(res => console.log(res.data));
+    }
 
     useEffect(() => {
-        axios.get(ROOT).then((res) => setFolders(res.data));
+        axios.get(FOLDER_ROOT).then((res) => setFolders(res.data));
     }, []);
 
     return (
@@ -19,7 +27,7 @@ function App() {
                 templateColumns='1fr 3fr'
                 templateAreas={{
                     base: `"menu" "aside" "main"`,
-                    lg: `"menu menu" "aside main"`,
+                    md: `"menu menu" "aside main"`,
                 }}
             >
                 <GridItem area='menu'>
@@ -37,7 +45,8 @@ function App() {
                             <List.Item
                                 key={index}
                                 onClick={() => {
-                                    console.log(file);
+                                    setSelectedFile(file)
+                                    fetchFileContent(file);
                                 }}
                             >
                                 {file.split('\\').pop()}
@@ -47,7 +56,9 @@ function App() {
                 </GridItem>
 
                 <GridItem area='main' bg='firebrick'>
-                    
+                    {!selectedFile && <Text>Select a file to view it.</Text>}
+
+                    {selectedFile && <Text>{selectedFile}</Text>}
                 </GridItem>
             </Grid>
         </Container>
