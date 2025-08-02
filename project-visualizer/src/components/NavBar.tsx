@@ -1,4 +1,5 @@
 import axios from "axios";
+import ROOT from '../constants/constants';
 
 interface Props {
     folders: string[];
@@ -7,8 +8,6 @@ interface Props {
 }
 
 const NavBar = ({ folders, onSetFolderContents, onSetCurrentFolder }: Props) => {
-    const ROOT = 'http://localhost:5000/folders/';
-
     const fetchFolderContents = (folderName: string) => {
         axios.get(ROOT + folderName).then((res) => {
             onSetFolderContents(res.data);

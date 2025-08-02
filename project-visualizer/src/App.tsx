@@ -2,10 +2,9 @@ import { useEffect, useState } from 'react';
 import { Container, Grid, GridItem, List, Text } from '@chakra-ui/react';
 import axios from 'axios';
 import NavBar from './components/NavBar';
+import ROOT from './constants/constants';
 
 function App() {
-    const ROOT = 'http://localhost:5000/folders/';
-
     const [folders, setFolders] = useState<string[]>([]);
     const [currentFolder, setCurrentFolder] = useState('');
     const [folderContents, setFolderContents] = useState<string[]>([]);
@@ -47,7 +46,9 @@ function App() {
                     </List.Root>
                 </GridItem>
 
-                <GridItem area='main' bg='firebrick'></GridItem>
+                <GridItem area='main' bg='firebrick'>
+                    
+                </GridItem>
             </Grid>
         </Container>
     );
