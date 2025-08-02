@@ -3,18 +3,34 @@ import { Container, Grid, GridItem, List, Text } from '@chakra-ui/react';
 import axios from 'axios';
 import NavBar from './components/NavBar';
 import FOLDER_ROOT from './constants/constants';
-//import { FILE_ROOT } from './constants/constants';
+import CodeVisualizer from './components/CodeVisualizer';
+
+export interface CodeFile {
+    code: string,
+    language: string,
+    title: string;
+}
 
 function App() {
     const [folders, setFolders] = useState<string[]>([]);
     const [currentFolder, setCurrentFolder] = useState('');
     const [folderContents, setFolderContents] = useState<string[]>([]);
     const [selectedFile, setSelectedFile] = useState('');
-    const [fileData, setFileData] = useState('');
+    const [fileData, setFileData] = useState<CodeFile>({} as CodeFile);
 
     const fetchFileContent = (path: string) => {
         axios.get(`http://localhost:2000/readContent/${encodeURIComponent(path)}`)
-            .then(res => console.log(res.data));
+            .then(res => {
+                const fileName = path.split('\\').pop();
+                const fileExtension = fileName?.split('.').pop();
+
+                if(fileName && fileExtension) 
+                    setFileData({
+                        code: res.data,
+                        language: fileExtension,
+                        title: fileName
+                    })
+            });
     }
 
     useEffect(() => {
@@ -57,8 +73,7 @@ function App() {
 
                 <GridItem area='main' bg='firebrick'>
                     {!selectedFile && <Text>Select a file to view it.</Text>}
-
-                    {selectedFile && <Text>{selectedFile}</Text>}
+                    <CodeVisualizer fileData={fileData}/>
                 </GridItem>
             </Grid>
         </Container>
