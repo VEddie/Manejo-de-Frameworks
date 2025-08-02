@@ -1,17 +1,14 @@
-import { Button, Container, Grid, GridItem, Text } from '@chakra-ui/react';
-import axios from 'axios';
 import { useEffect, useState } from 'react';
-
-// import getFolders from './api/api';
+import { Container, Grid, GridItem, List, Text } from '@chakra-ui/react';
+import axios from 'axios';
+import NavBar from './components/NavBar';
 
 function App() {
     const ROOT = 'http://localhost:5000/folders/';
-    const [folders, setFolders] = useState([]);
-    const [currentFolder, setCurrentFolder] = useState('');
 
-    const fetchFolderContents = (folderName: string) => {
-        axios.get(ROOT + folderName).then(res => console.log(res));
-    };
+    const [folders, setFolders] = useState<string[]>([]);
+    const [currentFolder, setCurrentFolder] = useState('');
+    const [folderContents, setFolderContents] = useState<string[]>([]);
 
     useEffect(() => {
         axios.get(ROOT).then((res) => setFolders(res.data));
@@ -26,25 +23,31 @@ function App() {
                     lg: `"menu menu" "aside main"`,
                 }}
             >
-                <GridItem area='menu' bg='gray.muted'>
-                    {<Text>Current folder: {currentFolder}</Text>}
+                <GridItem area='menu'>
+                    <NavBar
+                        folders={folders}
+                        onSetFolderContents={(contents: string[]) => setFolderContents(contents)}
+                        onSetCurrentFolder={(folder: string) => setCurrentFolder(folder)}
+                    />
                 </GridItem>
+
                 <GridItem area='aside' bg='coral'>
-                    {folders.map((folder, index) => (
-                        <Button
-                            key={index}
-                            onClick={() => {
-                                fetchFolderContents(folder);
-                                setCurrentFolder(folder);
-                            }}
-                        >
-                            {folder}
-                        </Button>
-                    ))}
+                    {!currentFolder && <Text>Select a folder from the menu.</Text>}
+                    <List.Root>
+                        {folderContents.map((file: string, index: number) => (
+                            <List.Item
+                                key={index}
+                                onClick={() => {
+                                    console.log(file);
+                                }}
+                            >
+                                {file.split('\\').pop()}
+                            </List.Item>
+                        ))}
+                    </List.Root>
                 </GridItem>
-                <GridItem area='main' bg='royalblue'>
-                    
-                </GridItem>
+
+                <GridItem area='main' bg='firebrick'></GridItem>
             </Grid>
         </Container>
     );
