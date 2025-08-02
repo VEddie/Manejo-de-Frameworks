@@ -1,6 +1,8 @@
 import { CodeFile } from '@/App';
 import { CodeBlock, createShikiAdapter } from '@chakra-ui/react/code-block';
 import { HighlighterGeneric } from 'shiki';
+import { CODE_TYPES, IMG_TYPES, MEDIA_TYPES } from '../constants/constants';
+import { Image } from '@chakra-ui/react';
 
 interface Props {
     fileData: CodeFile;
@@ -29,8 +31,8 @@ const shikiAdapter = createShikiAdapter<HighlighterGeneric<any, any>>({
     },
 });
 
-const CodeVisualizer = ({ fileData }: Props) => {
-    if (fileData.code)
+const Visualizer = ({ fileData }: Props) => {
+    if (CODE_TYPES.includes(fileData.language))
         return (
             <CodeBlock.AdapterProvider value={shikiAdapter}>
                 <CodeBlock.Root
@@ -46,5 +48,11 @@ const CodeVisualizer = ({ fileData }: Props) => {
                 </CodeBlock.Root>
             </CodeBlock.AdapterProvider>
         );
+
+    else if(IMG_TYPES.includes(fileData.language))
+        return <Image src={fileData.path}/>
+
+    else if(MEDIA_TYPES.includes(fileData.language))
+        return <video src={fileData.path} autoPlay></video>
 };
-export default CodeVisualizer;
+export default Visualizer;

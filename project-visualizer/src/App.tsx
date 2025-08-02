@@ -3,12 +3,13 @@ import { Container, Grid, GridItem, List, Text } from '@chakra-ui/react';
 import axios from 'axios';
 import NavBar from './components/NavBar';
 import FOLDER_ROOT from './constants/constants';
-import CodeVisualizer from './components/CodeVisualizer';
+import Visualizer from './components/Visualizer';
 
 export interface CodeFile {
-    code: string,
-    language: string,
+    code: string;
+    language: string;
     title: string;
+    path: string;
 }
 
 function App() {
@@ -19,19 +20,32 @@ function App() {
     const [fileData, setFileData] = useState<CodeFile>({} as CodeFile);
 
     const fetchFileContent = (path: string) => {
-        axios.get(`http://localhost:2000/readContent/${encodeURIComponent(path)}`)
-            .then(res => {
-                const fileName = path.split('\\').pop();
-                const fileExtension = fileName?.split('.').pop();
+        axios.get(`http://localhost:2000/readContent/${encodeURIComponent(path)}`).then((res) => {
+            const fileName = path.split('\\').pop();
+            const fileExtension = fileName?.split('.').pop();
 
-                if(fileName && fileExtension) 
+            // gitignore breaks the CodeVisualizer for the time being.
+
+            if(fileName && fileExtension) {
+                if(fileExtension === 'json')
                     setFileData({
-                        code: res.data,
-                        language: fileExtension,
-                        title: fileName
-                    })
-            });
-    }
+                    code: JSON.stringify(res.data),
+                    language: fileExtension,
+                    title: fileName,
+                    path: path
+                });
+
+                else 
+                    setFileData({
+                    code: res.data,
+                    language: fileExtension,
+                    title: fileName,
+                    path: path
+                });
+            }
+                
+        });
+    };
 
     useEffect(() => {
         axios.get(FOLDER_ROOT).then((res) => setFolders(res.data));
@@ -61,7 +75,7 @@ function App() {
                             <List.Item
                                 key={index}
                                 onClick={() => {
-                                    setSelectedFile(file)
+                                    setSelectedFile(file);
                                     fetchFileContent(file);
                                 }}
                             >
@@ -71,9 +85,9 @@ function App() {
                     </List.Root>
                 </GridItem>
 
-                <GridItem area='main' bg='firebrick'>
+                <GridItem area='main' bg='red.400'>
                     {!selectedFile && <Text>Select a file to view it.</Text>}
-                    <CodeVisualizer fileData={fileData}/>
+                    <Visualizer fileData={fileData} />
                 </GridItem>
             </Grid>
         </Container>
